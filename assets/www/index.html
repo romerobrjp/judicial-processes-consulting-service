@@ -13,14 +13,14 @@
 <body>
 	<div data-role="page" data-title="Home" id="index">
 	    <div data-role="header">
-	        <h1>Consulta Processual</h1>
+	        <h1>Consulta Mobile</h1>
 	        <a id="botaoSair" href="#" onclick="navigator.app.exitApp();" data-icon="delete" data-theme="b" data-transition="pop">		
 				Sair
 			</a>
 	    </div>
 	    
 	    <div data-role="content">
-	    	 <label for="tipoConsulta" class="select">Consultar por:</label>
+	    	<label for="tipoConsulta" class="select">Consultar por:</label>
 			<select name="tipoConsulta" id="tipoConsulta">
 			   <option value="num_processo">Nº Processo</option>
 			   <option value="num_oab">Nº OAB</option>
@@ -57,7 +57,7 @@
 			}
 			
 			function limparInputConsulta() {
-				$(''#valor_consulta').val("");
+				$('#valor_consulta').val("");
 			}
 		</script>	    
 	</div>
