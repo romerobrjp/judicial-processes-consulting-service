@@ -1,0 +1,2 @@
+var descricao, preco, codigoBarra;
+
