@@ -39,13 +39,11 @@ function consultaProcesso2Grau() {
 		contentType: 'text/xml charset="utf-8"',
 		data: msgConsultaProcesso2Grau,
 		processData: false,
-		success: function(data) {
-			alert("sucessando");
-			$(data.xml).find('return').each(function() {
-				var resposta = $(this).find('classe').text();
-			});
-			alert(resposta);
+		success: function(response) {
+			var xml = $(response);
+			var classe = xml.find('classe').text();
+			alert(classe);
 		},
-		failure: alert('DEU AGUIA')		
+		error: alert('Não foi possível realizar a consulta');
 	});
 }
