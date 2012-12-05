@@ -20,12 +20,17 @@
 	    </div>
 	    
 	    <div data-role="content">
-	    	<label for="tipoConsulta" class="select">Consultar por:</label>
-			<select name="tipoConsulta" id="tipoConsulta" onclick="gerenciaOpcoesComboboxOab()">
-			   <option value="num_processo">Nº Processo</option>
-			   <option value="num_oab">Nº OAB</option>
-			   <option value="nome_parte">Noma da parte</option>
-			</select>
+	    	<label for="tipoConsulta" class="select">Nº do Processo:</label>
+	    	<div data-role="fieldcontain">
+			    <input type="text" name="valor_consulta" id="valor_consulta" value="Digite aqui..." style="text-color: #ccc"
+			    onfocus="this.value = this.value == 'Digite aqui...' ? '' : this.value; this.style.color='#000';" 
+			    onblur="this.value = this.value == '' ? this.value = 'Digite aqui...' : this.value; this.value =='Digite aqui...' ? this.style.color='#ccc' : this.style.color='#000'" />
+			</div>
+<!-- 			<select name="tipoConsulta" id="tipoConsulta" onclick="gerenciaOpcoesComboboxOab()"> -->
+<!-- 			   <option value="num_processo">Nº Processo</option> -->
+<!-- 			   <option value="num_oab">Nº OAB</option> -->
+<!-- 			   <option value="nome_parte">Noma da parte</option> -->
+<!-- 			</select> -->
 
 			<input type="checkbox" name="grau1" id="grau1" class="custom" data-mini="true" />
 			<label for="grau1">1º grau</label>
@@ -42,30 +47,24 @@
 			<input type="checkbox" name="execucoes_penais" id="execucoes_penais" class="custom" data-mini="true" />
 			<label for="execucoes_penais">Execuções Penais</label>
 			
-			<div data-role="fieldcontain">
-			    <input type="text" name="valor_consulta" id="valor_consulta" value="Digite aqui..."
-			    onfocus="this.value = this.value == 'Digite aqui...' ? '' : this.value; this.style.color='#000';" 
-			    onfocusout="this.value = this.value == '' ? this.value = 'Digite aqui...' : this.value; 
-	    			this.value=='username' ? this.style.color='#ccc' : this.style.color='#000'" />
-			</div>
 			
-			<div id="div_letra" style="display: none;">
-            <select name="letra" id="letra" >
-                <option value="a">A</option>
-                <option value="b">B</option>
-                <option value="e">E</option>
-                <option value="p">P</option>
-                <option value="x">X</option>
-            </select>
-            </div>
+<!-- 			<div id="div_letra" style="display: none;"> -->
+<!--             <select name="letra" id="letra" > -->
+<!--                 <option value="a">A</option> -->
+<!--                 <option value="b">B</option> -->
+<!--                 <option value="e">E</option> -->
+<!--                 <option value="p">P</option> -->
+<!--                 <option value="x">X</option> -->
+<!--             </select> -->
+<!--             </div> -->
 
-			<div id="div_estado" style="display: none;">
-            <select name="estado" id="estado" >
-                <option value="num_processo">Nº Processo</option>
-                <option value="pb">PB</option>
-                <option value="pe">PE</option>
-            </select>
-            </div>
+<!-- 			<div id="div_estado" style="display: none;"> -->
+<!--             <select name="estado" id="estado" > -->
+<!--                 <option value="num_processo">Nº Processo</option> -->
+<!--                 <option value="pb">PB</option> -->
+<!--                 <option value="pe">PE</option> -->
+<!--             </select> -->
+<!--             </div> -->
 
 			<a href="#" data-role="button" data-icon="search" data-mini="true" onclick="">Pesquisar</a>
 	     	<a href="#" data-role="button" data-mini="true" onclick="limparInputConsulta();">Limpar</a>
