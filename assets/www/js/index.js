@@ -21,11 +21,10 @@ function gerenciaOpcoesComboboxOab() {
 }
 
 var msgConsultaProcesso2Grau = 
-	'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"'+ 
-	'xmlns:wss="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
+	'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
 	'<soapenv:Header/>' + 
 	'<soapenv:Body>' +
-	'<wss:consultaProcesso2Grau xmlns="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
+	'<wss:consultaProcesso2Grau>' +
 	'<arg0> <numero>99920110006957001</numero> </arg0>' +
 	'</wss:consultaProcesso2Grau>' +
 	'</soapenv:Body>' +
@@ -35,23 +34,19 @@ function consultaProcesso2Grau() {
 	$.ajax({
 		url: 'http://app.tjpb.jus.br:80/consultaprocessual2/ConsultaProcessualWSService',
 		type: 'POST',
-		dataType: 'xml',
 		contentType: 'text/xml',
+		dataType: 'xml',
+		contentType: 'text/xml charset="utf-8"',
 		data: msgConsultaProcesso2Grau,
-		success: function(xmlHttpRequest, status) {
+		processData: false,
+		success: function(data) {
 			alert("sucessando");
-			$(xmlHttpRequest.responseXML).find('consultaProcesso2GrauResponse').each(function() {
-				var resposta = $(this).find('Processo').find('classe').text();
+			var xml = data.xml;
+			$(xml).find('consultaProcesso2GrauResponse').each(function() {
+				var resposta = $(this).find('classe').text();
 			});
 			alert(resposta);
 		},
-		failure: alert('DEU AGUIA')		
+		error: alert('DEU AGUIA')		
 	});
-}
-
-function resultado(xmlHttpRequest, status) {
-	$(xmlHttpRequest.responseXML).find('consultaProcesso2GrauResponse').each(function() {
-		var resposta = $(this).find('Processo').text();
-	});
-	alert(resposta);
 }
