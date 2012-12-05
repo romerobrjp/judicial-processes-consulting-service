@@ -41,12 +41,11 @@ function consultaProcesso2Grau() {
 		processData: false,
 		success: function(data) {
 			alert("sucessando");
-			var xml = data.xml;
-			$(xml).find('consultaProcesso2GrauResponse').each(function() {
+			$(data.xml).find('return').each(function() {
 				var resposta = $(this).find('classe').text();
 			});
 			alert(resposta);
 		},
-		error: alert('DEU AGUIA')		
+		failure: alert('DEU AGUIA')		
 	});
 }
