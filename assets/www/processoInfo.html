@@ -1,0 +1,90 @@
+<div data-role="page" id="processoInfo">
+	<div data-role="header">
+        <img src="img/logo-consulta-processual.png" />
+        <h1 id="sem_internet" style="display:none; background-color: red; color: white;">Sem conexão com a Internet</h1>
+        <a id="bt_sair" href="#" onclick="navigator.app.exitApp();" data-icon="delete" data-theme="b" 
+        	data-transition="pop" data-iconpos="notext" data-corners="true" class="ui-corner-right">		
+			Sair
+		</a>
+		
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" class="ui-btn-active ui-state-persist">Processo</a></li>
+				<li><a href="#partesInfo">Partes</a></li>
+				<li><a href="#">Movimentacoes</a></li>
+			</ul>
+		</div><!-- /navbar -->
+    </div>
+
+    <div data-role="content">
+		<ul data-role="list-view" id="processo_detalhes">
+			<li>
+				<h3>Num Processo</h3>
+				<p id="nuProcesso"></p>
+			</li>
+			
+			<li>
+				<h3>Num Novo</h3>
+				<p id="nuProcesso1Grau"></p>
+			</li>
+			
+			<li>
+				<h3>Classe</h3>
+				<p id="classe"></p>
+			</li>
+			
+			<li>
+				<h3>Status</h3>
+				<p id="stProcesso"></p>
+			</li>
+			
+			<li>
+				<h3>Vara</h3>
+				<p id="vara"></p>
+			</li>
+			
+			<li>
+				<h3>Distribuicao</h3>
+				<p id="dtDistribuicao"></p>
+			</li>
+			
+			<li>
+				<h3>Valor da Acao</h3>
+				<p id="vlAcao"></p>
+			</li>
+		</ul>
+    </div>
+    
+    <div data-role="footer">
+		<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+	</div>
+</div>
+
+<div data-role="page" id="partesInfo">
+	<div data-role="header">
+        <img src="img/logo-consulta-processual.png" />
+        <h1 id="sem_internet" style="display:none; background-color: red; color: white;">Sem conexão com a Internet</h1>
+        <a id="bt_sair" href="#" onclick="navigator.app.exitApp();" data-icon="delete" data-theme="b" 
+        	data-transition="pop" data-iconpos="notext" data-corners="true" class="ui-corner-right">		
+			Sair
+		</a>
+		
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#processoInfo" >Processo</a></li>
+				<li><a href="#" class="ui-btn-active ui-state-persist" data-transition="slidefade">Partes</a></li>
+				<li><a href="#" >Movimentacoes</a></li>
+			</ul>
+		</div><!-- /navbar -->
+    </div>
+    
+	<div data-role="content">
+		<ul data-role="list-view" id="lista_partes">
+						
+		</ul>
+	</div>
+	
+	<div data-role="footer">
+		<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+	</div>
+</div>

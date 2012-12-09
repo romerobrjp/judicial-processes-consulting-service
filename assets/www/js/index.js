@@ -1,6 +1,24 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-	consultaProcesso2Grau();
+	checarConexao();
+}
+
+function checarConexao() {
+    var networkState = navigator.network.connection.type;
+    var states = {};
+    states[Connection.UNKNOWN]  = 'unknown';
+    states[Connection.ETHERNET] = 'ethernet';
+    states[Connection.WIFI]     = 'wifi';
+    states[Connection.CELL_2G]  = '2g';
+    states[Connection.CELL_3G]  = '3g';
+    states[Connection.CELL_4G]  = '4g';
+    states[Connection.NONE]     = 'none';
+
+    //alert(networkState + ' - ' + states[Connection.NONE]);
+    
+    if(networkState == 'none') {
+        $("#aviso_conexao").css('display', 'block');
+    }
 }
 
 function limparInputConsulta() {
@@ -20,30 +38,11 @@ function gerenciaOpcoesComboboxOab() {
     }
 }
 
-var msgConsultaProcesso2Grau = 
-	'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
-	'<soapenv:Header/>' + 
-	'<soapenv:Body>' +
-	'<wss:consultaProcesso2Grau>' +
-	'<arg0> <numero>99920110006957001</numero> </arg0>' +
-	'</wss:consultaProcesso2Grau>' +
-	'</soapenv:Body>' +
-	'</soapenv:Envelope>';
-
-function consultaProcesso2Grau() {
-	$.ajax({
-		url: 'http://app.tjpb.jus.br:80/consultaprocessual2/ConsultaProcessualWSService',
-		type: 'POST',
-		contentType: 'text/xml',
-		dataType: 'xml',
-		contentType: 'text/xml charset="utf-8"',
-		data: msgConsultaProcesso2Grau,
-		processData: false,
-		success: function(response) {
-			var xml = $(response);
-			var classe = xml.find('classe').text();
-			alert(classe);
-		},
-		error: alert('Não foi possível realizar a consulta');
-	});
+function consultar() {
+	if($('#grau1').is(':checked') == true) {
+		consultaProcesso1Grau();
+	}
+	if($('#grau2').is(':checked') == true) {
+		consultaProcesso2Grau();
+	}
 }
