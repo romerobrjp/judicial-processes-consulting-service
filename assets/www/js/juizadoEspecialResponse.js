@@ -34,7 +34,7 @@ function consultaProcessoJuizadoEspecial(numProcesso) {
 //				alert('Nenhum resultado para o número de processo informado.');
 //				return;
 //			}
-			
+
 			//carregando infos do processo			
 			$('#nuProcesso_je').text(xml.find('nuProcesso').text());
 			$('#classe_je').text(xml.find('classe').text());
