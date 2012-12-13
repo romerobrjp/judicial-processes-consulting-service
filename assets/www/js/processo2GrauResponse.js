@@ -5,11 +5,11 @@ $('#processo2GrauInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#partes2GrauInfo').swipeleft(function() {
+$('#processo2GrauInfo').swipeleft(function() {
 	$.mobile.changePage('#movimentacoes2GrauInfo');
 });
 
-$('#partes2GrauInfo').swiperight(function() {
+$('#processo2GrauInfo').swiperight(function() {
 	$.mobile.changePage('#partes2GrauInfo');
 });
 

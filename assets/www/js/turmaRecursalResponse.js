@@ -5,11 +5,11 @@ $('#processoTurmaRecInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#partesTurmaRecInfo').swipeleft(function() {
+$('#processoTurmaRecInfo').swipeleft(function() {
 	$.mobile.changePage('#movimentacoesTurmaRecInfo');
 });
 
-$('#partesTurmaRecInfo').swiperight(function() {
+$('#processoTurmaRecInfo').swiperight(function() {
 	$.mobile.changePage('#partesTurmaRecInfo');
 });
 

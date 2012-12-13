@@ -5,11 +5,11 @@ $('#processoJuizadoEspecInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#partesJuizadoEspecInfo').swipeleft(function() {
+$('#processoJuizadoEspecInfo').swipeleft(function() {
 	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
 });
 
-$('#partesJuizadoEspecInfo').swiperight(function() {
+$('#processoJuizadoEspecInfo').swiperight(function() {
 	$.mobile.changePage('#partesJuizadoEspecInfo');
 });
 

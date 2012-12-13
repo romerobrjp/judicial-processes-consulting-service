@@ -5,11 +5,11 @@ $('#processoExecPenalInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#partesExecPenalInfo').swipeleft(function() {
+$('#processoExecPenalInfo').swipeleft(function() {
 	$.mobile.changePage('#movimentacoesExecPenalInfo');
 });
 
-$('#partesExecPenalInfo').swiperight(function() {
+$('#processoExecPenalInfo').swiperight(function() {
 	$.mobile.changePage('#partesExecPenalInfo');
 });
 
