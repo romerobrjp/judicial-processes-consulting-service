@@ -61,6 +61,6 @@ function consultarPorNumero() {
 		$.mobile.changePage( $("#processoTurmaRecInfo") );
 	}
 	else if($('#execucao_penal').is(':checked') == true) {
-		
+		$.mobile.changePage( $("#processoExecPenalInfo") );
 	}
 }

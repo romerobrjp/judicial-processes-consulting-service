@@ -1,38 +1,38 @@
-$('#processoJuizadoEspecInfo').bind('pageinit', function(event) {
-	//var numProcesso = $('#valor_consulta').val();
-	var numProcesso = '20020050068218';
-	consultaProcessoJuizadoEspecial(numProcesso);
+$('#processoExecPenalInfo').bind('pageinit', function(event) {
+	var numProcesso = $('#valor_consulta').val();
+	//var numProcesso = '';
+	consultaProcessoExecucaoPenal(numProcesso);
 });
 
 //swipes
-$('#partesJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
+$('#partesExecPenalInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoesExecPenalInfo');
 });
 
-$('#partesJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#partesJuizadoEspecInfo');
+$('#partesExecPenalInfo').swiperight(function() {
+	$.mobile.changePage('#partesExecPenalInfo');
 });
 
-$('#partesJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#processoJuizadoEspecInfo');
+$('#partesExecPenalInfo').swipeleft(function() {
+	$.mobile.changePage('#processoExecPenalInfo');
 });
 
-$('#partesJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
+$('#partesExecPenalInfo').swiperight(function() {
+	$.mobile.changePage('#movimentacoesExecPenalInfo');
 });
 
-$('#movimentacoesJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#partesJuizadoEspecInfo');
+$('#movimentacoesExecPenalInfo').swipeleft(function() {
+	$.mobile.changePage('#partesExecPenalInfo');
 });
 
-$('#movimentacoesJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#processoJuizadoEspecInfo');
+$('#movimentacoesExecPenalInfo').swiperight(function() {
+	$.mobile.changePage('#processoExecPenalInfo');
 });
 
 //consulta processo turma recursal
-function consultaProcessoJuizadoEspecial(numProcesso) {
-	$('#lista_partes_je').text("");
-	$('#lista_movimentacoes_je').text("");
+function consultaProcessoExecucaoPenal(numProcesso) {
+	$('#lista_partes_ep').text("");
+	$('#lista_movimentacoes_ep').text("");
 	
 	var msgConsultaProcessoJuizadoEspecial = 
 		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
@@ -50,7 +50,7 @@ function consultaProcessoJuizadoEspecial(numProcesso) {
 		contentType: 'text/xml',
 		dataType: 'xml',
 		contentType: 'text/xml charset="iso-8859-1"',
-		data: msgConsultaProcessoJuizadoEspecial,
+		data: msgConsultaProcessoExecucaoPenal,
 		processData: false,
 		success: function(response) {
 			var xml = $(response);
@@ -61,12 +61,12 @@ function consultaProcessoJuizadoEspecial(numProcesso) {
 //			}
 
 			//carregando infos do processo			
-			$('#nuProcesso_je').text(xml.find('nuProcesso').text());
-			$('#classe_je').text(xml.find('classe').text());
-			$('#stProcesso_je').text(xml.find('stProcesso').text());
-			$('#vara_je').text(xml.find('vara').text());
-			$('#dtDistribuicao_je').text(xml.find('dtDistribuicao').text());
-			$('#vlAcao_je').text(xml.find('vlAcao').text());
+			$('#nuProcesso_ep').text(xml.find('nuProcesso').text());
+			$('#classe_ep').text(xml.find('classe').text());
+			$('#stProcesso_ep').text(xml.find('stProcesso').text());
+			$('#vara_ep').text(xml.find('vara').text());
+			$('#dtDistribuicao_ep').text(xml.find('dtDistribuicao').text());
+			$('#vlAcao_ep').text(xml.find('vlAcao').text());
 			
 			//carregando infos das partes		
 			xml.find('partes').each(function() {
@@ -76,7 +76,7 @@ function consultaProcessoJuizadoEspecial(numProcesso) {
 				var advogados = $(this).find('advogados').text();
 				var nuDoc= $(this).find('nuDoc').text();
 				
-				$('#lista_partes_je').append('<li> <h5>'+nmParte+'</h5>' + 
+				$('#lista_partes_ep').append('<li> <h5>'+nmParte+'</h5>' + 
 					'<p> Tipo: ' + tipoParte + ' </p>' +
 					'<p> Situação: ' + stParte + ' </p>' +
 					'<p> Advogados: ' + advogados + ' </p>' +
@@ -89,7 +89,7 @@ function consultaProcessoJuizadoEspecial(numProcesso) {
 				var dsMovimentacao = $(this).find('dsMovimentacao').text();
 				var dsComplemento = $(this).find('dsComplemento').text();
 				
-				$('#lista_movimentacoes_je').append('<li>' + 
+				$('#lista_movimentacoes_ep').append('<li>' + 
 					'<h5>' + dtMovimentacao + '</h5>' +
 					'<p> Descrição: ' + dsMovimentacao + ' </p>' +
 					'<p> Complemento: ' + dsComplemento + ' </p> </li>');

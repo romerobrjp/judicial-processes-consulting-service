@@ -1281,14 +1281,14 @@ $.widget( "mobile.widget", {
 		touchOverflowEnabled: false,
 
 		// Set default dialog transition - 'none' for no transitions
-		defaultDialogTransition: "pop",
+		defaultDialogTransition: "none",
 
 		// Show loading message during Ajax requests
 		// if false, message will not appear, but loading classes will still be toggled on html el
-		loadingMessage: "loading",
+		loadingMessage: "Carregando...",
 
 		// Error response message - appears when an Ajax page request fails
-		pageLoadErrorMessage: "Error Loading Page",
+		pageLoadErrorMessage: "Error ao carregar página",
 
 		// Should the text be visble in the loading message?
 		loadingMessageTextVisible: false,

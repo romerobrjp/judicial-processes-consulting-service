@@ -4,6 +4,31 @@ $('#processo1GrauInfo').bind('pageinit', function(event) {
 	consultaProcesso1Grau(numProcesso);
 });
 
+//swipes
+$('#partes1GrauInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoes1GrauInfo');
+});
+
+$('#partes1GrauInfo').swiperight(function() {
+	$.mobile.changePage('#partes1GrauInfo');
+});
+
+$('#partes1GrauInfo').swipeleft(function() {
+	$.mobile.changePage('#processo1GrauInfo');
+});
+
+$('#partes1GrauInfo').swiperight(function() {
+	$.mobile.changePage('#movimentacoes1GrauInfo');
+});
+
+$('#movimentacoes1GrauInfo').swipeleft(function() {
+	$.mobile.changePage('#partes1GrauInfo');
+});
+
+$('#movimentacoes1GrauInfo').swiperight(function() {
+	$.mobile.changePage('#processo1GrauInfo');
+});
+
 //consulta processo 1º grau
 function consultaProcesso1Grau(numProcesso) {
 	$('#lista_partes_1g').text("");
@@ -64,7 +89,7 @@ function consultaProcesso1Grau(numProcesso) {
 				var dsComplemento = $(this).find('dsComplemento').text();
 				
 				$('#lista_movimentacoes_1g').append('<li>' + 
-					'<p> Data movimentação: ' + dtMovimentacao + ' </p>' +
+					'<h5>' + dtMovimentacao + '</h5>' +
 					'<p> Descrição: ' + dsMovimentacao + ' </p>' +
 					'<p> Complemento: ' + dsComplemento + ' </p> </li>');
 			});

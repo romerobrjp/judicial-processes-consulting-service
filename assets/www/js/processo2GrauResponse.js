@@ -4,6 +4,31 @@ $('#processo2GrauInfo').bind('pageinit', function(event) {
 	consultaProcesso2Grau(numProcesso);
 });
 
+//swipes
+$('#partes2GrauInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoes2GrauInfo');
+});
+
+$('#partes2GrauInfo').swiperight(function() {
+	$.mobile.changePage('#partes2GrauInfo');
+});
+
+$('#partes2GrauInfo').swipeleft(function() {
+	$.mobile.changePage('#processo2GrauInfo');
+});
+
+$('#partes2GrauInfo').swiperight(function() {
+	$.mobile.changePage('#movimentacoes2GrauInfo');
+});
+
+$('#movimentacoes2GrauInfo').swipeleft(function() {
+	$.mobile.changePage('#partes2GrauInfo');
+});
+
+$('#movimentacoes2GrauInfo').swiperight(function() {
+	$.mobile.changePage('#processo2GrauInfo');
+});
+
 //consulta processo 2º grau
 function consultaProcesso2Grau(numProcesso) {
 	$('#lista_partes_2g').text("");

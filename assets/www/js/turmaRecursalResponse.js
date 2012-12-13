@@ -4,6 +4,31 @@ $('#processoTurmaRecInfo').bind('pageinit', function(event) {
 	consultaProcessoTurmaRecursal(numProcesso);
 });
 
+//swipes
+$('#partesTurmaRecInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoesTurmaRecInfo');
+});
+
+$('#partesTurmaRecInfo').swiperight(function() {
+	$.mobile.changePage('#partesTurmaRecInfo');
+});
+
+$('#partesTurmaRecInfo').swipeleft(function() {
+	$.mobile.changePage('#processoTurmaRecInfo');
+});
+
+$('#partesTurmaRecInfo').swiperight(function() {
+	$.mobile.changePage('#movimentacoesTurmaRecInfo');
+});
+
+$('#movimentacoesTurmaRecInfo').swipeleft(function() {
+	$.mobile.changePage('#partesTurmaRecInfo');
+});
+
+$('#movimentacoesTurmaRecInfo').swiperight(function() {
+	$.mobile.changePage('#processoTurmaRecInfo');
+});
+
 //consulta processo turma recursal
 function consultaProcessoTurmaRecursal(numProcesso) {
 	$('#lista_partes_tr').text("");
@@ -34,7 +59,7 @@ function consultaProcessoTurmaRecursal(numProcesso) {
 //				alert('Nenhum resultado para o número de processo informado.');
 //				return;
 //			}
-			
+			alert(xml.next().tag);
 			//carregando infos processo			
 			$('#nuRecurso_tr').text(xml.find('nuRecurso').text());
 			$('#classe_tr').text(xml.find('classe').text());
@@ -64,14 +89,10 @@ function consultaProcessoTurmaRecursal(numProcesso) {
 				var dsMovimentacao = $(this).find('dsMovimentacao').text();
 				
 				$('#lista_movimentacoes_tr').append('<li>' + 
-						'<p> Data movimentação: ' + dtMovimentacao + ' </p>' +
+						'<h5>' + dtMovimentacao + ' </h5>' +
 						'<p> Descrição: ' + dsMovimentacao + ' </p> </li>');
 			});
 		}
 		//failure: alert('Não foi possível realizar a consulta')
 	});
 }
-
-$('#processoTurmaRecInfo').live('pageshow', function(event) {
-	consultaProcessoTurmaRecursal();
-});
