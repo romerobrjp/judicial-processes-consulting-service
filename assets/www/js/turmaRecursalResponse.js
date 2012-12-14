@@ -6,27 +6,27 @@ $('#processoTurmaRecInfo').bind('pageinit', function(event) {
 
 //swipes
 $('#processoTurmaRecInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoesTurmaRecInfo');
+	$.mobile.changePage('#partesTurmaRecInfo');
 });
 
 $('#processoTurmaRecInfo').swiperight(function() {
-	$.mobile.changePage('#partesTurmaRecInfo');
-});
-
-$('#partesTurmaRecInfo').swipeleft(function() {
-	$.mobile.changePage('#processoTurmaRecInfo');
-});
-
-$('#partesTurmaRecInfo').swiperight(function() {
 	$.mobile.changePage('#movimentacoesTurmaRecInfo');
 });
 
+$('#partesTurmaRecInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoesTurmaRecInfo');
+});
+
+$('#partesTurmaRecInfo').swiperight(function() {
+	$.mobile.changePage('#processoTurmaRecInfo');
+});
+
 $('#movimentacoesTurmaRecInfo').swipeleft(function() {
-	$.mobile.changePage('#partesTurmaRecInfo');
+	$.mobile.changePage('#processoTurmaRecInfo');
 });
 
 $('#movimentacoesTurmaRecInfo').swiperight(function() {
-	$.mobile.changePage('#processoTurmaRecInfo');
+	$.mobile.changePage('#partesTurmaRecInfo');
 });
 
 //consulta processo turma recursal

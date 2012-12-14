@@ -1,32 +1,32 @@
 $('#processoExecPenalInfo').bind('pageinit', function(event) {
-	var numProcesso = $('#valor_consulta').val();
-	//var numProcesso = '';
+	//var numProcesso = $('#valor_consulta').val();
+	var numProcesso = '163506320128152002';
 	consultaProcessoExecucaoPenal(numProcesso);
 });
 
 //swipes
 $('#processoExecPenalInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoesExecPenalInfo');
+	$.mobile.changePage('#partesExecPenalInfo');
 });
 
 $('#processoExecPenalInfo').swiperight(function() {
-	$.mobile.changePage('#partesExecPenalInfo');
-});
-
-$('#partesExecPenalInfo').swipeleft(function() {
-	$.mobile.changePage('#processoExecPenalInfo');
-});
-
-$('#partesExecPenalInfo').swiperight(function() {
 	$.mobile.changePage('#movimentacoesExecPenalInfo');
 });
 
+$('#partesExecPenalInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoesExecPenalInfo');
+});
+
+$('#partesExecPenalInfo').swiperight(function() {
+	$.mobile.changePage('#processoExecPenalInfo');
+});
+
 $('#movimentacoesExecPenalInfo').swipeleft(function() {
-	$.mobile.changePage('#partesExecPenalInfo');
+	$.mobile.changePage('#processoExecPenalInfo');
 });
 
 $('#movimentacoesExecPenalInfo').swiperight(function() {
-	$.mobile.changePage('#processoExecPenalInfo');
+	$.mobile.changePage('#partesExecPenalInfo');
 });
 
 //consulta processo turma recursal
@@ -50,7 +50,7 @@ function consultaProcessoExecucaoPenal(numProcesso) {
 		contentType: 'text/xml',
 		dataType: 'xml',
 		contentType: 'text/xml charset="iso-8859-1"',
-		data: msgConsultaProcessoExecucaoPenal,
+		data: msgConsultaProcessoJuizadoEspecial,
 		processData: false,
 		success: function(response) {
 			var xml = $(response);
@@ -59,40 +59,38 @@ function consultaProcessoExecucaoPenal(numProcesso) {
 //				alert('Nenhum resultado para o número de processo informado.');
 //				return;
 //			}
-
+			alert(xml.find('classe').text());
 			//carregando infos do processo			
 			$('#nuProcesso_ep').text(xml.find('nuProcesso').text());
 			$('#classe_ep').text(xml.find('classe').text());
 			$('#stProcesso_ep').text(xml.find('stProcesso').text());
 			$('#vara_ep').text(xml.find('vara').text());
-			$('#dtDistribuicao_ep').text(xml.find('dtDistribuicao').text());
+			$('#dtCadastro_ep').text(xml.find('dtCadastro').text());
 			$('#vlAcao_ep').text(xml.find('vlAcao').text());
 			
 			//carregando infos das partes		
 			xml.find('partes').each(function() {
 				var nmParte = $(this).find('nmParte').text();
 				var tipoParte = $(this).find('tipoParte').text();
-				var stParte = $(this).find('stParte').text();
-				var advogados = $(this).find('advogados').text();
-				var nuDoc= $(this).find('nuDoc').text();
+				var dtNascimento = $(this).find('dtNascimento').text();
+				var nmPai = $(this).find('nmPai').text();
+				var nmMae = $(this).find('nmMae').text();
 				
 				$('#lista_partes_ep').append('<li> <h5>'+nmParte+'</h5>' + 
 					'<p> Tipo: ' + tipoParte + ' </p>' +
-					'<p> Situação: ' + stParte + ' </p>' +
-					'<p> Advogados: ' + advogados + ' </p>' +
-					'<p> Documento: ' + nuDoc + ' </p> </li>');
+					'<p> Data de nascimento: ' + dtNascimento + ' </p>' +
+					'<p> Nome do pai: ' + nmPai + ' </p>' +
+					'<p> Nome da mãe: ' + nmMae + ' </p> </li>');
 			});
 			
-			//carregando infos da movimentacoes			
+			//carregando infos das movimentacoes			
 			xml.find('movimentacoes').each(function() {
 				var dtMovimentacao = $(this).find('dtMovimentacao').text();
 				var dsMovimentacao = $(this).find('dsMovimentacao').text();
-				var dsComplemento = $(this).find('dsComplemento').text();
 				
 				$('#lista_movimentacoes_ep').append('<li>' + 
 					'<h5>' + dtMovimentacao + '</h5>' +
-					'<p> Descrição: ' + dsMovimentacao + ' </p>' +
-					'<p> Complemento: ' + dsComplemento + ' </p> </li>');
+					'<p> Descrição: ' + dsMovimentacao + ' </p> </li>');
 			});
 		}
 		//failure: alert('Não foi possível realizar a consulta')

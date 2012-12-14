@@ -6,27 +6,27 @@ $('#processoJuizadoEspecInfo').bind('pageinit', function(event) {
 
 //swipes
 $('#processoJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
+	$.mobile.changePage('#partesJuizadoEspecInfo');
 });
 
 $('#processoJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#partesJuizadoEspecInfo');
-});
-
-$('#partesJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#processoJuizadoEspecInfo');
-});
-
-$('#partesJuizadoEspecInfo').swiperight(function() {
 	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
 });
 
+$('#partesJuizadoEspecInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
+});
+
+$('#partesJuizadoEspecInfo').swiperight(function() {
+	$.mobile.changePage('#processoJuizadoEspecInfo');
+});
+
 $('#movimentacoesJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#partesJuizadoEspecInfo');
+	$.mobile.changePage('#processoJuizadoEspecInfo');
 });
 
 $('#movimentacoesJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#processoJuizadoEspecInfo');
+	$.mobile.changePage('#partesJuizadoEspecInfo');
 });
 
 //consulta processo turma recursal

@@ -6,27 +6,27 @@ $('#processo1GrauInfo').bind('pageinit', function(event) {
 
 //swipes
 $('#processo1GrauInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoes1GrauInfo');
+	$.mobile.changePage('#partes1GrauInfo');
 });
 
 $('#processo1GrauInfo').swiperight(function() {
-	$.mobile.changePage('#partes1GrauInfo');
-});
-
-$('#partes1GrauInfo').swipeleft(function() {
-	$.mobile.changePage('#processo1GrauInfo');
-});
-
-$('#partes1GrauInfo').swiperight(function() {
 	$.mobile.changePage('#movimentacoes1GrauInfo');
 });
 
+$('#partes1GrauInfo').swipeleft(function() {
+	$.mobile.changePage('#movimentacoes1GrauInfo');
+});
+
+$('#partes1GrauInfo').swiperight(function() {
+	$.mobile.changePage('#processo1GrauInfo');
+});
+
 $('#movimentacoes1GrauInfo').swipeleft(function() {
-	$.mobile.changePage('#partes1GrauInfo');
+	$.mobile.changePage('#processo1GrauInfo');
 });
 
 $('#movimentacoes1GrauInfo').swiperight(function() {
-	$.mobile.changePage('#processo1GrauInfo');
+	$.mobile.changePage('#partes1GrauInfo');
 });
 
 //consulta processo 1º grau
