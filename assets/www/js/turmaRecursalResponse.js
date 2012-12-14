@@ -59,7 +59,7 @@ function consultaProcessoTurmaRecursal(numProcesso) {
 //				alert('Nenhum resultado para o número de processo informado.');
 //				return;
 //			}
-			alert(xml.next().tag);
+			
 			//carregando infos processo			
 			$('#nuRecurso_tr').text(xml.find('nuRecurso').text());
 			$('#classe_tr').text(xml.find('classe').text());

@@ -53,14 +53,14 @@ function consultaProcessoJuizadoEspecial(numProcesso) {
 		data: msgConsultaProcessoJuizadoEspecial,
 		processData: false,
 		success: function(response) {
-			alert(response);
+			
 			var xml = $(response);
 			
 //			if ( xml.find('nuProcesso').text() ==  '') {
 //				alert('Nenhum resultado para o número de processo informado.');
 //				return;
 //			}
-			//alert(xml.find('nuProcesso').text());
+			
 			//carregando infos do processo			
 			$('#nuProcesso_je').text(xml.find('nuProcesso').text());
 			$('#classe_je').text(xml.find('classe').text());

@@ -59,7 +59,7 @@ function consultaProcessoExecucaoPenal(numProcesso) {
 //				alert('Nenhum resultado para o número de processo informado.');
 //				return;
 //			}
-			alert(xml.find('classe').text());
+			
 			//carregando infos do processo			
 			$('#nuProcesso_ep').text(xml.find('nuProcesso').text());
 			$('#classe_ep').text(xml.find('classe').text());
