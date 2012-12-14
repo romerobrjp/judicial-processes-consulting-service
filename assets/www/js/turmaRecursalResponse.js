@@ -89,8 +89,8 @@ function consultaProcessoTurmaRecursal(numProcesso) {
 				var dsMovimentacao = $(this).find('dsMovimentacao').text();
 				
 				$('#lista_movimentacoes_tr').append('<li>' + 
-						'<h5>' + dtMovimentacao + ' </h5>' +
-						'<p> Descrição: ' + dsMovimentacao + ' </p> </li>');
+					'<h5>' + dtMovimentacao + ' </h5>' +
+					'<p> Descrição: ' + dsMovimentacao + ' </p> </li>');
 			});
 		}
 		//failure: alert('Não foi possível realizar a consulta')
