@@ -5,29 +5,29 @@ $('#processoJuizadoEspecInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#processoJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#partesJuizadoEspecInfo');
-});
-
-$('#processoJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
-});
-
-$('#partesJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
-});
-
-$('#partesJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#processoJuizadoEspecInfo');
-});
-
-$('#movimentacoesJuizadoEspecInfo').swipeleft(function() {
-	$.mobile.changePage('#processoJuizadoEspecInfo');
-});
-
-$('#movimentacoesJuizadoEspecInfo').swiperight(function() {
-	$.mobile.changePage('#partesJuizadoEspecInfo');
-});
+//$('#processoJuizadoEspecInfo').swipeleft(function() {
+//	$.mobile.changePage('#partesJuizadoEspecInfo');
+//});
+//
+//$('#processoJuizadoEspecInfo').swiperight(function() {
+//	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
+//});
+//
+//$('#partesJuizadoEspecInfo').swipeleft(function() {
+//	$.mobile.changePage('#movimentacoesJuizadoEspecInfo');
+//});
+//
+//$('#partesJuizadoEspecInfo').swiperight(function() {
+//	$.mobile.changePage('#processoJuizadoEspecInfo');
+//});
+//
+//$('#movimentacoesJuizadoEspecInfo').swipeleft(function() {
+//	$.mobile.changePage('#processoJuizadoEspecInfo');
+//});
+//
+//$('#movimentacoesJuizadoEspecInfo').swiperight(function() {
+//	$.mobile.changePage('#partesJuizadoEspecInfo');
+//});
 
 //consulta processo turma recursal
 function consultaProcessoJuizadoEspecial(numProcesso) {
@@ -60,7 +60,7 @@ function consultaProcessoJuizadoEspecial(numProcesso) {
 //				alert('Nenhum resultado para o número de processo informado.');
 //				return;
 //			}
-			
+			 
 			//carregando infos do processo			
 			$('#nuProcesso_je').text(xml.find('nuProcesso').text());
 			$('#classe_je').text(xml.find('classe').text());

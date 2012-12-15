@@ -5,29 +5,29 @@ $('#processo2GrauInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#processo2GrauInfo').swipeleft(function() {
-	$.mobile.changePage('#partes2GrauInfo');
-});
-
-$('#processo2GrauInfo').swiperight(function() {
-	$.mobile.changePage('#movimentacoes2GrauInfo');
-});
-
-$('#partes2GrauInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoes2GrauInfo');
-});
-
-$('#partes2GrauInfo').swiperight(function() {
-	$.mobile.changePage('#processo2GrauInfo');
-});
-
-$('#movimentacoes2GrauInfo').swipeleft(function() {
-	$.mobile.changePage('#processo2GrauInfo');
-});
-
-$('#movimentacoes2GrauInfo').swiperight(function() {
-	$.mobile.changePage('#partes2GrauInfo');
-});
+//$('#processo2GrauInfo').swipeleft(function() {
+//	$.mobile.changePage('#partes2GrauInfo');
+//});
+//
+//$('#processo2GrauInfo').swiperight(function() {
+//	$.mobile.changePage('#movimentacoes2GrauInfo');
+//});
+//
+//$('#partes2GrauInfo').swipeleft(function() {
+//	$.mobile.changePage('#movimentacoes2GrauInfo');
+//});
+//
+//$('#partes2GrauInfo').swiperight(function() {
+//	$.mobile.changePage('#processo2GrauInfo');
+//});
+//
+//$('#movimentacoes2GrauInfo').swipeleft(function() {
+//	$.mobile.changePage('#processo2GrauInfo');
+//});
+//
+//$('#movimentacoes2GrauInfo').swiperight(function() {
+//	$.mobile.changePage('#partes2GrauInfo');
+//});
 
 //consulta processo 2º grau
 function consultaProcesso2Grau(numProcesso) {

@@ -5,29 +5,29 @@ $('#processoTurmaRecInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#processoTurmaRecInfo').swipeleft(function() {
-	$.mobile.changePage('#partesTurmaRecInfo');
-});
-
-$('#processoTurmaRecInfo').swiperight(function() {
-	$.mobile.changePage('#movimentacoesTurmaRecInfo');
-});
-
-$('#partesTurmaRecInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoesTurmaRecInfo');
-});
-
-$('#partesTurmaRecInfo').swiperight(function() {
-	$.mobile.changePage('#processoTurmaRecInfo');
-});
-
-$('#movimentacoesTurmaRecInfo').swipeleft(function() {
-	$.mobile.changePage('#processoTurmaRecInfo');
-});
-
-$('#movimentacoesTurmaRecInfo').swiperight(function() {
-	$.mobile.changePage('#partesTurmaRecInfo');
-});
+//$('#processoTurmaRecInfo').swipeleft(function() {
+//	$.mobile.changePage('#partesTurmaRecInfo');
+//});
+//
+//$('#processoTurmaRecInfo').swiperight(function() {
+//	$.mobile.changePage('#movimentacoesTurmaRecInfo');
+//});
+//
+//$('#partesTurmaRecInfo').swipeleft(function() {
+//	$.mobile.changePage('#movimentacoesTurmaRecInfo');
+//});
+//
+//$('#partesTurmaRecInfo').swiperight(function() {
+//	$.mobile.changePage('#processoTurmaRecInfo');
+//});
+//
+//$('#movimentacoesTurmaRecInfo').swipeleft(function() {
+//	$.mobile.changePage('#processoTurmaRecInfo');
+//});
+//
+//$('#movimentacoesTurmaRecInfo').swiperight(function() {
+//	$.mobile.changePage('#partesTurmaRecInfo');
+//});
 
 //consulta processo turma recursal
 function consultaProcessoTurmaRecursal(numProcesso) {

@@ -5,29 +5,29 @@ $('#processoExecPenalInfo').bind('pageinit', function(event) {
 });
 
 //swipes
-$('#processoExecPenalInfo').swipeleft(function() {
-	$.mobile.changePage('#partesExecPenalInfo');
-});
-
-$('#processoExecPenalInfo').swiperight(function() {
-	$.mobile.changePage('#movimentacoesExecPenalInfo');
-});
-
-$('#partesExecPenalInfo').swipeleft(function() {
-	$.mobile.changePage('#movimentacoesExecPenalInfo');
-});
-
-$('#partesExecPenalInfo').swiperight(function() {
-	$.mobile.changePage('#processoExecPenalInfo');
-});
-
-$('#movimentacoesExecPenalInfo').swipeleft(function() {
-	$.mobile.changePage('#processoExecPenalInfo');
-});
-
-$('#movimentacoesExecPenalInfo').swiperight(function() {
-	$.mobile.changePage('#partesExecPenalInfo');
-});
+//$('#processoExecPenalInfo').swipeleft(function() {
+//	$.mobile.changePage('#partesExecPenalInfo');
+//});
+//
+//$('#processoExecPenalInfo').swiperight(function() {
+//	$.mobile.changePage('#movimentacoesExecPenalInfo');
+//});
+//
+//$('#partesExecPenalInfo').swipeleft(function() {
+//	$.mobile.changePage('#movimentacoesExecPenalInfo');
+//});
+//
+//$('#partesExecPenalInfo').swiperight(function() {
+//	$.mobile.changePage('#processoExecPenalInfo');
+//});
+//
+//$('#movimentacoesExecPenalInfo').swipeleft(function() {
+//	$.mobile.changePage('#processoExecPenalInfo');
+//});
+//
+//$('#movimentacoesExecPenalInfo').swiperight(function() {
+//	$.mobile.changePage('#partesExecPenalInfo');
+//});
 
 //consulta processo turma recursal
 function consultaProcessoExecucaoPenal(numProcesso) {
@@ -35,17 +35,17 @@ function consultaProcessoExecucaoPenal(numProcesso) {
 	$('#lista_movimentacoes_ep').text("");
 	
 	var msgConsultaProcessoJuizadoEspecial = 
-		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
+		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.tjpb.jus.br/">' +
 		'<soapenv:Header/>' + 
 		'<soapenv:Body>' +
-		'<wss:consultaProcessoJuizadosEspeciais>' +
-		'<arg0> <numero>'+ numProcesso +'</numero> </arg0>' +
-		'</wss:consultaProcessoJuizadosEspeciais>' +
+		'<web:consultarProcessoPorNumero>' +
+		'<arg0>'+ numProcesso +'</arg0>' +
+		'</web:consultarProcessoPorNumero>' +
 		'</soapenv:Body>' +
 		'</soapenv:Envelope>';
 
 	$.ajax({
-		url: 'http://app.tjpb.jus.br:80/consultaprocessual2/ConsultaProcessualWSService',
+		url: 'http://app.tjpb.jus.br:80/VEPCNJ/vep',
 		type: 'POST',
 		contentType: 'text/xml',
 		dataType: 'xml',
