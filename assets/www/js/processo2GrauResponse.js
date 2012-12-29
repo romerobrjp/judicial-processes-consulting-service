@@ -4,31 +4,6 @@ $('#processo2GrauInfo').bind('pageinit', function(event) {
 	consultaProcesso2Grau(numProcesso);
 });
 
-//swipes
-//$('#processo2GrauInfo').swipeleft(function() {
-//	$.mobile.changePage('#partes2GrauInfo');
-//});
-//
-//$('#processo2GrauInfo').swiperight(function() {
-//	$.mobile.changePage('#movimentacoes2GrauInfo');
-//});
-//
-//$('#partes2GrauInfo').swipeleft(function() {
-//	$.mobile.changePage('#movimentacoes2GrauInfo');
-//});
-//
-//$('#partes2GrauInfo').swiperight(function() {
-//	$.mobile.changePage('#processo2GrauInfo');
-//});
-//
-//$('#movimentacoes2GrauInfo').swipeleft(function() {
-//	$.mobile.changePage('#processo2GrauInfo');
-//});
-//
-//$('#movimentacoes2GrauInfo').swiperight(function() {
-//	$.mobile.changePage('#partes2GrauInfo');
-//});
-
 //consulta processo 2º grau
 function consultaProcesso2Grau(numProcesso) {
 	$('#lista_partes_2g').text("");
@@ -95,3 +70,28 @@ function consultaProcesso2Grau(numProcesso) {
 		//failure: alert('Não foi possível realizar a consulta')
 	});
 }
+
+//swipes
+//$('#processo2GrauInfo').swipeleft(function() {
+//	$.mobile.changePage('#partes2GrauInfo');
+//});
+//
+//$('#processo2GrauInfo').swiperight(function() {
+//	$.mobile.changePage('#movimentacoes2GrauInfo');
+//});
+//
+//$('#partes2GrauInfo').swipeleft(function() {
+//	$.mobile.changePage('#movimentacoes2GrauInfo');
+//});
+//
+//$('#partes2GrauInfo').swiperight(function() {
+//	$.mobile.changePage('#processo2GrauInfo');
+//});
+//
+//$('#movimentacoes2GrauInfo').swipeleft(function() {
+//	$.mobile.changePage('#processo2GrauInfo');
+//});
+//
+//$('#movimentacoes2GrauInfo').swiperight(function() {
+//	$.mobile.changePage('#partes2GrauInfo');
+//});

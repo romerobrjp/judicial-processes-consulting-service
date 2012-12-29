@@ -1,3 +1,10 @@
+try {
+	configurarBanco();
+} 
+catch (e) {
+	alert("configurarBanco(): " + e);	
+}
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
@@ -27,18 +34,18 @@ function limparInputConsulta() {
     $('#valor_consulta').val("");
 }
 
-function gerenciaOpcoesComboboxOab() {
-    if ($('#tipoConsulta').val() == 'num_oab') {
-    	alert($('#tipoConsulta').val())
-        $('#div_letra').css('display', 'block');
-        $('#div_estado').css('display', 'block');
-    }
-    else {
-    	alert($('#tipoConsulta').val())
-        $('#div_letra').css('display', 'none');
-        $('#div_estado').css('display', 'none');
-    }
-}
+//function gerenciaOpcoesComboboxOab() {
+//    if ($('#tipoConsulta').val() == 'num_oab') {
+//    	alert($('#tipoConsulta').val())
+//        $('#div_letra').css('display', 'block');
+//        $('#div_estado').css('display', 'block');
+//    }
+//    else {
+//    	alert($('#tipoConsulta').val())
+//        $('#div_letra').css('display', 'none');
+//        $('#div_estado').css('display', 'none');
+//    }
+//}
 
 function consultarPorNumero() {
 	var numProcesso = $('#valor_consulta').val();

@@ -34,7 +34,8 @@ function consultaProcessoExecucaoPenal(numProcesso) {
 	$('#lista_partes_ep').text("");
 	$('#lista_movimentacoes_ep').text("");
 	
-	var msgConsultaProcessoJuizadoEspecial = 
+	//processo FÍSICO	
+	var msgJuizadoEspecialConsulta = 
 		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.tjpb.jus.br/">' +
 		'<soapenv:Header/>' + 
 		'<soapenv:Body>' +
@@ -50,7 +51,7 @@ function consultaProcessoExecucaoPenal(numProcesso) {
 		contentType: 'text/xml',
 		dataType: 'xml',
 		contentType: 'text/xml charset="iso-8859-1"',
-		data: msgConsultaProcessoJuizadoEspecial,
+		data: msgJuizadoEspecialConsulta,
 		processData: false,
 		success: function(response) {
 			var xml = $(response);
@@ -65,8 +66,7 @@ function consultaProcessoExecucaoPenal(numProcesso) {
 			$('#classe_ep').text(xml.find('classe').text());
 			$('#stProcesso_ep').text(xml.find('stProcesso').text());
 			$('#vara_ep').text(xml.find('vara').text());
-			$('#dtCadastro_ep').text(xml.find('dtCadastro').text());
-			$('#vlAcao_ep').text(xml.find('vlAcao').text());
+			$('#dtDistribuicao_ep').text(xml.find('dtDistribuicao').text());
 			
 			//carregando infos das partes		
 			xml.find('partes').each(function() {
