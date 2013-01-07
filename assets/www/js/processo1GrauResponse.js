@@ -1,40 +1,42 @@
 var numProcesso = "";
-var permitidoArquivar = false;
+var proc = new Processo();
 
-//variaveis processo;
-var nuProcesso;
-var classe;
-var stProcesso;
-var vara;
-var dtDistribuicao;
-var vlAcao;
-//variaveis partes
-var nmParte;
-var tipoParte;
-var stParte;
-var advogados;
-var nuDoc;
-//variaveis movimentacoes
-var dtMovimentacao;
-var dsMovimentacao;
-var dsComplemento;
-
-var processoJson;
-
-$('#processo1GrauInfo').bind('pageinit', function(event) {
+$('#processo1GrauInfo').live('pageshow', function(event) {
 	//numProcesso = $('#valor_consulta').val();
 	numProcesso = '00520120004162';
-	var quant = quantConsultasArquivadas();
-	if (quant < 20) {
-		permitidoArquivar = true;
+	
+	var processoId = getUrlVars()["processoId"];
+	
+	if (processoId != null && processoId != undefined && processoId != "") {
+		alert("proc vindo da url: " + processoId);
+		carregarProcessoPorId(processoId);
 	}
-	consultarProcesso1Grau(numProcesso);	
+	else {
+		proc = consultarProcesso1Grau(numProcesso);
+		alert('nuprocesso: ' + proc.nuProcesso);
+	}
+	
+	carregarInfosProcesso(this.proc);
 });
 
-//consulta processo 1º grau
+$('#partes1GrauInfo').live('pageshow', function(event) {
+	carregarPartesProcesso(proc);
+});
+
+$('#processo1GrauInfo').live('pageshow', function(event) {
+	carregarMovimentacoesProcesso(proc);
+});
+
+//consulta proc 1º grau
 function consultarProcesso1Grau(numProcesso) {
+	var proc = new Processo();
+	var parte;
+	var mov;
+	
+	$('#processo_detalhes_1g').text("");
 	$('#lista_partes_1g').text("");
 	$('#lista_movimentacoes_1g').text("");
+	
 	var msgConsultaProcesso1Grau =
 		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
 		'<soapenv:Header/>' + 
@@ -57,85 +59,91 @@ function consultarProcesso1Grau(numProcesso) {
 			var xml = $(response);
 			
 //			if ( xml.find('nuProcesso').text() ==  '') {
-//				alert('Nenhum resultado para o número de processo informado.');
+//				alert('Nenhum resultado para o número de proc informado.');
 //				return;
 //			}
 			
-			nuProcesso = xml.find('nuProcesso').text();
-			classe = xml.find('classe').text();
-			stProcesso = xml.find('stProcesso').text();
-			vara = xml.find('vara').text();
-			dtDistribuicao = xml.find('dtDistribuicao').text();
-			vlAcao = xml.find('vlAcao').text();
-				
-			//carregando infos do processo			
-			$('#nuProcesso_1g').text(nuProcesso);
-			$('#classe_1g').text(classe);
-			$('#stProcesso_1g').text(stProcesso);
-			$('#vara_1g').text(vara);
-			$('#dtDistribuicao_1g').text(dtDistribuicao);
-			$('#vlAcao_1g').text(vlAcao);
-			
-			//carregando infos das partes
+			//salvando infos do proc
+			proc.categoria = "1grau";
+			proc.nuProcesso = xml.find('nuProcesso').text();
+			proc.classe = xml.find('classe').text();
+			proc.stProcesso = xml.find('stProcesso').text();
+			proc.vara = xml.find('vara').text();
+			proc.dtDistribuicao = xml.find('dtDistribuicao').text();
+			proc.vlAcao = xml.find('vlAcao').text();
+
+			//salvando infos das partes
 			xml.find('partes').each(function() {
-				nmParte = $(this).find('nmParte').text();
-				tipoParte = $(this).find('tipoParte').text();
-				stParte = $(this).find('stParte').text();
-				advogados = $(this).find('advogados').text();
-				nuDoc = $(this).find('nuDoc').text();
+				parte = new Parte();
 				
-				$('#lista_partes_1g').append('<li> <h5>' + nmParte + '</h5>' + 
-					'<p> Tipo: ' + tipoParte + ' </p>' +
-					'<p> Situação: ' + stParte + ' </p>' +
-					'<p> Advogados: ' + advogados + ' </p>' +
-					'<p> Documento: ' + nuDoc + ' </p> </li>');
+				parte.nmParte = $(this).find('nmParte').text();
+				parte.tipoParte = $(this).find('tipoParte').text();
+				parte.stParte = $(this).find('stParte').text();
+				parte.advogados = $(this).find('advogados').text();
+				parte.nuDoc = $(this).find('nuDoc').text();
+				proc.partes.push(parte);
 			});
 			
-			//carregando infos da movimentacoes			
+			//salvando infos da movimentacoes			
 			xml.find('movimentacoes').each(function() {
-				dtMovimentacao = $(this).find('dtMovimentacao').text();
-				dsMovimentacao = $(this).find('dsMovimentacao').text();
-				dsComplemento = $(this).find('dsComplemento').text();
+				mov = new Movimentacao();
 				
-				$('#lista_movimentacoes_1g').append('<li>' + 
-					'<h5>' + dtMovimentacao + '</h5>' +
-					'<p> Descrição: ' + dsMovimentacao + ' </p>' +
-					'<p> Complemento: ' + dsComplemento + ' </p> </li>');
+				mov.dtMovimentacao = $(this).find('dtMovimentacao').text();
+				mov.dsMovimentacao = $(this).find('dsMovimentacao').text();
+				mov.dsComplemento = $(this).find('dsComplemento').text();
+				
+				proc.movimentacoes.push(mov);
 			});
 			
-			processoJson = {
-				"categoria" : "1grau",
-				"nuProcesso" : nuProcesso,
-				"classe" : classe,
-				"stProcesso" : stProcesso,
-				"vara" : vara,
-				"dtDistribuicao" : dtDistribuicao,
-				"vlAcao" : vlAcao,
-				"partes" : [{
-					"nmParte" : nmParte,
-					"tipoParte" : tipoParte,
-					"stParte" : stParte,
-					"advogados" : advogados,
-					"nuDoc" : nuDoc
-				}],
-				"movimentacoes" : [{
-					"dtMovimentacao" : dtMovimentacao,
-					"dsMovimentacao" : dsMovimentacao,
-					"dsComplemento" : dsComplemento
-				}]
-			}
-			
-			if (permitidoArquivar == true) {
-//				if (!verificarProcessoPorNumero()) {
-					alert('arquivando o processo ' + processoJson.nuProcesso + '...' + typeof processoJson);
-					arquivarConsulta(processoJson);
-//				}
-			}
+//			if (!verificarProcessoPorNumero()) {
+//				arquivarProcesso(proc);
+//			}
 		}
 		//error: alert('Não foi possível realizar a consulta')
 	});
+	alert(proc.partes.length + " partes");
+	return proc;
+}
+
+function carregarInfosProcesso(proc) {
+	$('#nuProcesso_1g').text(proc.nuProcesso);
+	$('#classe_1g').text(proc.classe);
+	$('#stProcesso_1g').text(proc.stProcesso);
+	$('#vara_1g').text(proc.vara);
+	$('#dtDistribuicao_1g').text(proc.dtDistribuicao);
+	$('#vlAcao_1g').text(proc.vlAcao);
+}
+
+function carregarPartesProcesso(proc) {
+//	alert(proc.nuProcesso);
+	for (var p in proc.partes) {
+		$('#lista_partes_1g').append(
+			'<li> <h5>' + p.nmParte + '</h5>' + 
+			'<p> Tipo: ' + p.tipoParte + ' </p>' +
+			'<p> Situação: ' + p.stParte + ' </p>' +
+			'<p> Advogados: ' + p.advogados + ' </p>' +
+			'<p> Documento: ' + p.nuDoc + ' </p> </li>');
+	}
+}
+
+function carregarMovimentacoesProcesso(proc) {
+//	alert(proc.nuProcesso);
+	for (var m in proc.movimentacoes) {
+		$('#lista_movimentacoes_1g').append(
+			'<li>' + 
+			'<h5>' + m.dtMovimentacao + '</h5>' +
+			'<p> Descrição: ' + m.dsMovimentacao + ' </p>' +
+			'<p> Complemento: ' + m.dsComplemento + ' </p>' +  
+			'</li>');
+	}
+}
+
+function carregarProcessoPorId(id) {
+	var proc = pegarProcessoPorId(id);
 	
-	
+	carregarInfosProcesso(proc);
+	carregarPartesProcesso(proc);
+	carregarMovimentacoesProcesso(proc);
 }
 
 //swipes

@@ -65,11 +65,6 @@ function consultaProcessoTurmaRecursal(numProcesso) {
 		success: function(response) {
 			var xml = $(response);
 			
-//			if ( xml.find('nuRecurso').text() ==  '') {
-//				alert('Nenhum resultado para o número de processo informado.');
-//				return;
-//			}
-			
 			//carregando infos processo			
 			$('#nuRecurso_tr').text(xml.find('nuRecurso').text());
 			$('#classe_tr').text(xml.find('classe').text());
@@ -107,7 +102,7 @@ function consultaProcessoTurmaRecursal(numProcesso) {
 	});
 	
 	
-	//consultar no eJUS (proceso VIRTUAL)
+	//consultar no eJUS (processo VIRTUAL)
 	$.ajax({
 		url: 'http://app.tjpb.jus.br:80/projudi/consultaProcessual',
 		type: 'POST',
@@ -119,43 +114,41 @@ function consultaProcessoTurmaRecursal(numProcesso) {
 		success: function(response) {
 			var xml = $(response);
 			
-//			if ( xml.find('nuRecurso').text() ==  '') {
-//				alert('Nenhum resultado para o número de processo informado.');
-//				return;
-//			}
+			if ( (xml.find('nuRecurso').text() != '') && (xml.find('nuRecurso').text() != null) && (xml.find('nuRecurso').text() != undefined) ) {
 			
-			//carregando infos processo			
-			$('#nuRecurso_tr').text(xml.find('nuRecurso').text());
-			$('#classe_tr').text(xml.find('classe').text());
-			$('#classeOrigem_tr').text(xml.find('classeOrigem').text());
-			$('#dtAutuacao_tr').text(xml.find('dtAutuacao').text());
-			$('#turma_tr').text(xml.find('turma').text());
-			$('#vara_tr').text(xml.find('vara').text());
-			$('#presidente_tr').text(xml.find('presidente').text());
-			$('#relator_tr').text(xml.find('relator').text());
-			
-			//carregando infos das partes		
-			xml.find('partes').each(function() {
-				var nmParte = $(this).find('nmParte').text();
-				var tipoParte = $(this).find('tipoParte').text();
-				var stParte = $(this).find('stParte').text();
-				var advogados = $(this).find('advogados').text();
-				var nuDoc= $(this).find('nuDoc').text();
+				//carregando infos processo			
+				$('#nuRecurso_tr').text(xml.find('nuRecurso').text());
+				$('#classe_tr').text(xml.find('classe').text());
+				$('#classeOrigem_tr').text(xml.find('classeOrigem').text());
+				$('#dtAutuacao_tr').text(xml.find('dtAutuacao').text());
+				$('#turma_tr').text(xml.find('turma').text());
+				$('#vara_tr').text(xml.find('vara').text());
+				$('#presidente_tr').text(xml.find('presidente').text());
+				$('#relator_tr').text(xml.find('relator').text());
 				
-				$('#lista_partes_tr').append('<li> <h5>'+nmParte+'</h5>' + 
-						'<p> Tipo: ' + tipoParte + ' </p>' +
-						'<p> Advogados: ' + advogados + ' </p> </li>');
-			});
-			
-			//carregando infos da movimentacoes			
-			xml.find('movimentacoes').each(function() {
-				var dtMovimentacao = $(this).find('dtMovimentacao').text();
-				var dsMovimentacao = $(this).find('dsMovimentacao').text();
+				//carregando infos das partes		
+				xml.find('partes').each(function() {
+					var nmParte = $(this).find('nmParte').text();
+					var tipoParte = $(this).find('tipoParte').text();
+					var stParte = $(this).find('stParte').text();
+					var advogados = $(this).find('advogados').text();
+					var nuDoc= $(this).find('nuDoc').text();
+					
+					$('#lista_partes_tr').append('<li> <h5>'+nmParte+'</h5>' + 
+							'<p> Tipo: ' + tipoParte + ' </p>' +
+							'<p> Advogados: ' + advogados + ' </p> </li>');
+				});
 				
-				$('#lista_movimentacoes_tr').append('<li>' + 
-					'<h5>' + dtMovimentacao + ' </h5>' +
-					'<p> Descrição: ' + dsMovimentacao + ' </p> </li>');
-			});
+				//carregando infos da movimentacoes			
+				xml.find('movimentacoes').each(function() {
+					var dtMovimentacao = $(this).find('dtMovimentacao').text();
+					var dsMovimentacao = $(this).find('dsMovimentacao').text();
+					
+					$('#lista_movimentacoes_tr').append('<li>' + 
+						'<h5>' + dtMovimentacao + ' </h5>' +
+						'<p> Descrição: ' + dsMovimentacao + ' </p> </li>');
+				});
+			}
 		}
 		//failure: alert('Não foi possível realizar a consulta')
 	});

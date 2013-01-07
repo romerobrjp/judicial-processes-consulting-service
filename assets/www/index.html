@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="css/jquery_mobile.css" />
 	<link rel="stylesheet" href="css/jqm-icon-pack-2-original.css" />
-	<script type="text/javascript" charset="iso-8859-1" src="js/cordova.js"></script>
+	<link rel="stylesheet" href="css/geral.css" />
+	<script type="text/javascript" charset="iso-8859-1" src="js/cordova-2.2.0.js"></script>
 	<script type="text/javascript" charset="iso-8859-1" src="js/jquery.js"></script>
 	<script type="text/javascript" charset="iso-8859-1" src="js/jquery.mobile-1.2.0.js"></script>	 
 	<script type="text/javascript" charset="iso-8859-1" src="js/util.js"></script>
@@ -16,7 +17,7 @@
 <body>
 	<div data-role="page" data-title="Home" id="index">
 	    <div data-role="header">
-	    	<div style="text-align: center">	    	
+	    	<div class="centralizar">	    	
        			<img id="logo" src="img/logo-consulta-processual.png" />
        		</div>
 			
@@ -66,12 +67,14 @@
 			    onblur="this.value = this.value == '' ? this.value = 'Digite aqui...' : this.value; this.value =='Digite aqui...' ? this.style.color='#ccc' : this.style.color='#000'" />
 			</div>
 			
-			<a href="#" data-role="button" data-inline="true" onclick="limparInputConsulta();">Limpar</a>
-			<a href="#" id="btConsultar" data-role="button" data-icon="search" data-inline="true" onclick="consultarPorNumero()">Consultar</a>
+			<div class="centralizar">
+				<a href="#" data-role="button" data-inline="true" onclick="limparInputConsulta();">Limpar</a>
+				<a href="#" id="btConsultar" data-role="button" data-icon="search" data-inline="true" onclick="consultarPorNumero()">Consultar</a>
+			</div>
 	    </div>
 
 		<div data-role="footer">
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 			
@@ -79,153 +82,7 @@
 	<!-- ------------------------------------------- PROCESSO 1º GRAU -------------------------------------------------------- -->
 	<!-- --------------------------------------------------------------------------------------------------------------------- -->
 	
-	<div data-role="page" id="processo1GrauInfo">
-		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
-					<li><a href="#partes1GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes1GrauInfo" data-icon="move">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-	    </div>
 	
-	    <div data-role="content">
-			<ul data-role="listview" id="processo_detalhes_1g">
-				<li>
-					<h3>Num Processo</h3>
-					<p id="nuProcesso_1g"></p>
-				</li>
-				
-				<li>
-					<h3>Num Novo</h3>
-					<p id="nuProcesso1Grau_1g"></p>
-				</li>
-				
-				<li>
-					<h3>Classe</h3>
-					<p id="classe_1g"></p>
-				</li>
-				
-				<li>
-					<h3>Status</h3>
-					<p id="stProcesso_1g"></p>
-				</li>
-				
-				<li>
-					<h3>Vara</h3>
-					<p id="vara_1g"></p>
-				</li>
-				
-				<li>
-					<h3>Distribuicao</h3>
-					<p id="dtDistribuicao_1g"></p>
-				</li>
-				
-				<li>
-					<h3>Valor da Acao</h3>
-					<p id="vlAcao_1g"></p>
-				</li>
-			</ul>
-	    </div>
-	    
-	    <div data-role="footer">
-	    	<div data-role="navbar">
-				<ul>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
-					<li><a href="#partes1GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes1GrauInfo" data-icon="move">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
-		</div>
-	</div>
-	
-	<!-- --------------------------------------------------------------------------------------------------------------------- -->
-	
-	<div data-role="page" id="partes1GrauInfo">
-		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
-	        
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo1GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes1GrauInfo" data-icon="move">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-	    </div>
-	    
-		<div data-role="content">
-			<ol data-role="listview" id="lista_partes_1g" data-filter="true">
-							
-			</ol>
-		</div>
-		
-		<div data-role="footer">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo1GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes1GrauInfo" data-icon="move">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
-		</div>
-	</div>
-	
-	<!-- --------------------------------------------------------------------------------------------------------------------- -->
-	
-	<div data-role="page" id="movimentacoes1GrauInfo">
-		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
-
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo1GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#partes1GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-	    </div>
-	    
-		<div data-role="content">
-			<ol data-role="listview" id="lista_movimentacoes_1g" data-filter="true">
-							
-			</ol>
-		</div>
-		
-		<div data-role="footer">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo1GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#partes1GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
-		</div>
-	</div> <!-- movimentacoes1GrauInfo -->			
 			
 	
 	<!-- --------------------------------------------------------------------------------------------------------------------- -->
@@ -234,7 +91,9 @@
 
 	<div data-role="page" id="processo2GrauInfo">
 		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
+	        <div class="centralizar">	    	
+       			<img id="logo" src="img/logo-consulta-processual.png" />
+       		</div>
 
 			<div data-role="navbar">
 				<ul>
@@ -246,7 +105,7 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -315,10 +174,10 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -338,7 +197,7 @@
 				<ul>
 					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -354,10 +213,10 @@
 				<ul>
 					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -377,7 +236,7 @@
 				<ul>
 					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -393,10 +252,10 @@
 				<ul>
 					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div> <!-- movimentacoes2GrauInfo  -->
 	
@@ -406,7 +265,9 @@
 	
 	<div data-role="page" id="processoJuizadoEspecInfo">
 		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
+	        <div class="centralizar">	    	
+       			<img id="logo" src="img/logo-consulta-processual.png" />
+       		</div>
 
 			<div data-role="navbar">
 				<ul>
@@ -418,7 +279,7 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partesJuizadoEspecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -472,10 +333,10 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partesJuizadoEspecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -495,7 +356,7 @@
 				<ul>
 					<li><a href="#processoJuizadoEspecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -511,10 +372,10 @@
 				<ul>
 					<li><a href="#processoJuizadoEspecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesJuizadoEspecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -534,7 +395,7 @@
 				<ul>
 					<li><a href="#processoJuizadoEspecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partesJuizadoEspecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -550,10 +411,10 @@
 				<ul>
 					<li><a href="#processoJuizadoEspecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partesJuizadoEspecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div> <!-- movimentacoesJuizadoEspecInfo  -->
 	
@@ -564,7 +425,9 @@
 	
 	<div data-role="page" id="processoTurmaRecInfo">
 		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
+	        <div class="centralizar">	    	
+       			<img id="logo" src="img/logo-consulta-processual.png" />
+       		</div>
 
 			<div data-role="navbar">
 				<ul>
@@ -576,7 +439,7 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partesTurmaRecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesTurmaRecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesTurmaRecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -630,10 +493,10 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partesTurmaRecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesTurmaRecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesTurmaRecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -653,7 +516,7 @@
 				<ul>
 					<li><a href="#processoTurmaRecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesTurmaRecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesTurmaRecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -669,10 +532,10 @@
 				<ul>
 					<li><a href="#processoTurmaRecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesTurmaRecInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesTurmaRecInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -692,7 +555,7 @@
 				<ul>
 					<li><a href="#processoTurmaRecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partesTurmaRecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -708,10 +571,10 @@
 				<ul>
 					<li><a href="#processoTurmaRecInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partesTurmaRecInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div> <!-- movimentacoesTurmaRecInfo  -->
 
@@ -722,7 +585,9 @@
 	
 	<div data-role="page" id="processoExecPenalInfo">
 		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
+	        <div class="centralizar">	    	
+       			<img id="logo" src="img/logo-consulta-processual.png" />
+       		</div>
 
 			<div data-role="navbar">
 				<ul>
@@ -734,7 +599,7 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partesExecPenalInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesExecPenalInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesExecPenalInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -773,10 +638,10 @@
 				<ul>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 					<li><a href="#partesExecPenalInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesExecPenalInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesExecPenalInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -796,7 +661,7 @@
 				<ul>
 					<li><a href="#processoExecPenalInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesExecPenalInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesExecPenalInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -812,10 +677,10 @@
 				<ul>
 					<li><a href="#processoExecPenalInfo" data-icon="page">Processo</a></li>
 					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoesExecPenalInfo" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#movimentacoesExecPenalInfo" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
@@ -835,7 +700,7 @@
 				<ul>
 					<li><a href="#processoExecPenalInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partesExecPenalInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
 	    </div>
@@ -851,10 +716,10 @@
 				<ul>
 					<li><a href="#processoExecPenalInfo" data-icon="page">Processo</a></li>
 					<li><a href="#partesExecPenalInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="move">Movimentacoes</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div> <!-- movimentacoesJuizadoEspecInfo  -->
 	
@@ -866,7 +731,9 @@
 	
 	<div data-role="page" data-title="Histórico de consultas" id="historicoConsultas">
 	    <div data-role="header">	    	
-       		<img id="logo" src="img/logo-consulta-processual.png" />
+       		<div class="centralizar">	    	
+       			<img id="logo" src="img/logo-consulta-processual.png" />
+       		</div>
 			
 			<div data-role="navbar">
 				<ul>
@@ -883,10 +750,13 @@
 	    </div>
 
 		<div data-role="footer">
-			<h4>Tribunal de Justiça da Paraíba - 2012</h4>
+			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 		</div>
 	</div>
 	
+	<script type="text/javascript" charset="iso-8859-1" src="js/Movimentacao.js" ></script>
+	<script type="text/javascript" charset="iso-8859-1" src="js/Parte.js" ></script>
+	<script type="text/javascript" charset="iso-8859-1" src="js/Processo.js" ></script>
 	<script type="text/javascript" charset="iso-8859-1" src="js/banco.js" ></script>
     <script type="text/javascript" charset="iso-8859-1" src="js/index.js" ></script>
     <script type="text/javascript" charset="iso-8859-1" src="js/processo1GrauResponse.js" ></script>

@@ -7402,7 +7402,7 @@ $( document ).bind( "pagecreate create", function( e ) {
 (function( $, undefined ) {
 
 $.mobile.listview.prototype.options.filter = false;
-$.mobile.listview.prototype.options.filterPlaceholder = "Filter items...";
+$.mobile.listview.prototype.options.filterPlaceholder = "Filtrar items...";
 $.mobile.listview.prototype.options.filterTheme = "c";
 // TODO rename callback/deprecate and default to the item itself as the first argument
 var defaultFilterCallback = function( text, searchValue, item ) {

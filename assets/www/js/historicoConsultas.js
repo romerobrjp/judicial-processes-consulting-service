@@ -1,3 +1,3 @@
-$('#historicoConsultas').bind('pageinit', function(event) {
+$('#historicoConsultas').bind('pageshow', function(event) {
 	listarProcessos();
 });

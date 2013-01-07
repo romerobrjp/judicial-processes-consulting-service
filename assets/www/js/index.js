@@ -56,18 +56,18 @@ function consultarPorNumero() {
 //	}
 	
 	if($('#grau1').is(':checked') == true) {
-		$.mobile.changePage( $("#processo1GrauInfo") );
+		$.mobile.changePage("processo1GrauInfo.html");
 	}	
 	else if($('#grau2').is(':checked') == true) {
-		$.mobile.changePage( $("#processo2GrauInfo") );
+		$.mobile.changePage("processo2GrauInfo.html");
 	}	
 	else if($('#juizado_especial').is(':checked') == true) {
-		$.mobile.changePage( $("#processoJuizadoEspecInfo") );
+		$.mobile.changePage("processoJuizadoEspecInfo");
 	}
 	else if($('#turma_recursal').is(':checked') == true) {
-		$.mobile.changePage( $("#processoTurmaRecInfo") );
+		$.mobile.changePage("processoTurmaRecInfo");
 	}
 	else if($('#execucao_penal').is(':checked') == true) {
-		$.mobile.changePage( $("#processoExecPenalInfo") );
+		$.mobile.changePage("processoExecPenalInfo");
 	}
 }
