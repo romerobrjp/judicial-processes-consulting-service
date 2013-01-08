@@ -1,7 +1,7 @@
 var numProcesso = "";
 var proc = new Processo();
 
-$('#processo1GrauInfo').live('pageshow', function(event) {
+$('#processo1GrauInfo').bind('pageshow', function(event) {
 	//numProcesso = $('#valor_consulta').val();
 	numProcesso = '00520120004162';
 	
@@ -12,11 +12,8 @@ $('#processo1GrauInfo').live('pageshow', function(event) {
 		carregarProcessoPorId(processoId);
 	}
 	else {
-		proc = consultarProcesso1Grau(numProcesso);
-		alert('nuprocesso: ' + proc.nuProcesso);
+		consultarProcesso1Grau(numProcesso);
 	}
-	
-	carregarInfosProcesso(this.proc);
 });
 
 $('#partes1GrauInfo').live('pageshow', function(event) {
@@ -33,7 +30,6 @@ function consultarProcesso1Grau(numProcesso) {
 	var parte;
 	var mov;
 	
-	$('#processo_detalhes_1g').text("");
 	$('#lista_partes_1g').text("");
 	$('#lista_movimentacoes_1g').text("");
 	
@@ -62,7 +58,7 @@ function consultarProcesso1Grau(numProcesso) {
 //				alert('Nenhum resultado para o número de proc informado.');
 //				return;
 //			}
-			
+
 			//salvando infos do proc
 			proc.categoria = "1grau";
 			proc.nuProcesso = xml.find('nuProcesso').text();
@@ -95,18 +91,20 @@ function consultarProcesso1Grau(numProcesso) {
 				proc.movimentacoes.push(mov);
 			});
 			
+			carregarInfosProcesso(proc);
+			carregarPartesProcesso(proc);
+			carregarMovimentacoesProcesso(proc);
+			
 //			if (!verificarProcessoPorNumero()) {
 //				arquivarProcesso(proc);
 //			}
 		}
 		//error: alert('Não foi possível realizar a consulta')
 	});
-	alert(proc.partes.length + " partes");
-	return proc;
 }
 
 function carregarInfosProcesso(proc) {
-	$('#nuProcesso_1g').text(proc.nuProcesso);
+	$('#nuProcesso_1g').html(proc.nuProcesso);
 	$('#classe_1g').text(proc.classe);
 	$('#stProcesso_1g').text(proc.stProcesso);
 	$('#vara_1g').text(proc.vara);
@@ -115,7 +113,7 @@ function carregarInfosProcesso(proc) {
 }
 
 function carregarPartesProcesso(proc) {
-//	alert(proc.nuProcesso);
+	alert("partes - " + proc.nuProcesso);
 	for (var p in proc.partes) {
 		$('#lista_partes_1g').append(
 			'<li> <h5>' + p.nmParte + '</h5>' + 
@@ -127,7 +125,7 @@ function carregarPartesProcesso(proc) {
 }
 
 function carregarMovimentacoesProcesso(proc) {
-//	alert(proc.nuProcesso);
+	alert("movs - " + proc.nuProcesso);
 	for (var m in proc.movimentacoes) {
 		$('#lista_movimentacoes_1g').append(
 			'<li>' + 

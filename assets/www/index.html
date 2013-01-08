@@ -38,27 +38,36 @@
 	    </div>
 	    
 	    <div data-role="content">
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup">
-	    		<legend>Informe a categoria:</legend>
-					<input type="radio" name="tipo_processo" id="grau1" checked="checked" />
-					<label for="grau1">1º Grau</label>
+<!-- 			<div data-role="fieldcontain"> -->
+<!-- 				<fieldset data-role="controlgroup"> -->
+<!-- 	    		<legend>Informe a categoria:</legend> -->
+<!-- 					<input type="radio" name="tipo_processo" id="grau1" checked="checked" /> -->
+<!-- 					<label for="grau1">1º Grau</label> -->
 		
-					<input type="radio" name="tipo_processo" id="grau2" />
-					<label for="grau2">2º Grau</label>
+<!-- 					<input type="radio" name="tipo_processo" id="grau2" /> -->
+<!-- 					<label for="grau2">2º Grau</label> -->
 		
-					<input type="radio" name="tipo_processo" id="juizado_especial" />
-					<label for="juizado_especial">Juizados Especiais</label>
+<!-- 					<input type="radio" name="tipo_processo" id="juizado_especial" /> -->
+<!-- 					<label for="juizado_especial">Juizados Especiais</label> -->
 		
-					<input type="radio" name="tipo_processo" id="turma_recursal" />
-					<label for="turma_recursal">Turmas Recursais</label>
+<!-- 					<input type="radio" name="tipo_processo" id="turma_recursal" /> -->
+<!-- 					<label for="turma_recursal">Turmas Recursais</label> -->
 		
-					<input type="radio" name="tipo_processo" id="execucao_penal" />
-					<label for="execucao_penal">Execuções Penais</label>
-				</fieldset>
-			</div>
+<!-- 					<input type="radio" name="tipo_processo" id="execucao_penal" /> -->
+<!-- 					<label for="execucao_penal">Execuções Penais</label> -->
+<!-- 				</fieldset> -->
+<!-- 			</div> -->
 			
-			<br/><br/>
+			<label for="combo-tipo-processo" class="select">Informe a categoria do processo: </label>
+			<select name="combo-tipo-processo" id="combo-tipo-processo">
+			   <option id="grau1" value="grau1">1º Grau</option>
+			   <option id="grau2" value="grau2">2º Grau</option>
+			   <option id="juizado_especial" value="juizado_especial">Juizado Especial</option>
+			   <option id="turma_recursal" value="turma_recursal">Turma Recursal</option>
+			   <option id="execucao_penal" value="execucao_penal">Execução Penal</option>
+			</select>
+			
+			<br/>
 			
 			<label for="tipoConsulta" class="select">Informe o Nº do Processo:</label>
 	    	<div data-role="fieldcontain">
@@ -69,7 +78,7 @@
 			
 			<div class="centralizar">
 				<a href="#" data-role="button" data-inline="true" onclick="limparInputConsulta();">Limpar</a>
-				<a href="#" id="btConsultar" data-role="button" data-icon="search" data-inline="true" onclick="consultarPorNumero()">Consultar</a>
+				<a href="#" id="btConsultar" data-role="button" data-icon="search" data-inline="true" onclick="consultarPorNumero()" data-theme="b">Consultar</a>
 			</div>
 	    </div>
 
