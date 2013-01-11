@@ -89,7 +89,7 @@ function consultarProcesso1Grau(numProcesso) {
 				
 				proc.movimentacoes.push(mov);				
 			});
-			
+			alert(proc.nuProcesso);
 			carregarInfosProcesso(proc);
 			
 //			if (!verificarProcessoPorNumero()) {
