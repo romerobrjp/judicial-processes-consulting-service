@@ -1,28 +1,30 @@
 var numProcesso = "";
 var proc = new Processo();
 
-$('#processo1GrauInfo').bind('pageshow', function(event) {
-	//numProcesso = $('#valor_consulta').val();
-	numProcesso = '00520120004162';
+document.addEventListener("deviceready", function() {
+	$('#processo1GrauInfo').bind('pageshow', function(event) {
+		//numProcesso = $('#valor_consulta').val();
+		numProcesso = '00520120004162';
+		
+		var processoId = getUrlVars()["processoId"];
+		
+		if (processoId != null && processoId != undefined && processoId != "") {
+			alert("proc vindo da url: " + processoId);
+			carregarProcessoPorId(processoId);
+		}
+		else {
+			consultarProcesso1Grau(numProcesso);
+		}
+	});
 	
-	var processoId = getUrlVars()["processoId"];
-	
-	if (processoId != null && processoId != undefined && processoId != "") {
-		alert("proc vindo da url: " + processoId);
-		carregarProcessoPorId(processoId);
-	}
-	else {
-		consultarProcesso1Grau(numProcesso);
-	}
-});
+	$('#partes1GrauInfo').bind('pageshow', function(event) {
+		carregarPartesProcesso(proc);
+	});
 
-$('#partes1GrauInfo').bind('pageshow', function(event) {
-	carregarPartesProcesso(proc);
-});
-
-$('#processo1GrauInfo').bind('pageshow', function(event) {
-	carregarMovimentacoesProcesso(proc);
-});
+	$('#processo1GrauInfo').bind('pageshow', function(event) {
+		carregarMovimentacoesProcesso(proc);
+	});
+}, false);
 
 //consulta proc 1º grau
 function consultarProcesso1Grau(numProcesso) {
