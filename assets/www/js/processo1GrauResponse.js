@@ -71,7 +71,7 @@ function consultarProcesso1Grau(numProcesso) {
 			carregarInfosProcesso(proc);
 			
 //			if (!verificarProcessoPorNumero()) {
-//				arquivarProcesso(proc);
+				arquivarProcesso(proc);
 //			}
 		}
 		//error: alert('Não foi possível realizar a consulta')
