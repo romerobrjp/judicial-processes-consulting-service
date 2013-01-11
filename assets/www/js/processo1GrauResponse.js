@@ -89,28 +89,28 @@ function carregarInfosProcesso(proc) {
 
 function carregarPartesProcesso(proc) {
 	$('#lista_partes_1g').empty();
-	alert("partes - " + proc.partes[0].nmParte);
-	for (var p in proc.partes) {
+	
+	$(proc.partes).each(function(i, p) {
 		$('#lista_partes_1g').append(
 			'<li> <h5>' + p.nmParte + '</h5>' + 
 			'<p> Tipo: ' + p.tipoParte + ' </p>' +
 			'<p> Situação: ' + p.stParte + ' </p>' +
 			'<p> Advogados: ' + p.advogados + ' </p>' +
 			'<p> Documento: ' + p.nuDoc + ' </p> </li>');
-	}
+	});
 }
 
 function carregarMovimentacoesProcesso(proc) {
 	$('#lista_movimentacoes_1g').empty();
 	
-	for (var m in proc.movimentacoes) {
+	$(proc.movimentacoes).each(function(i, m) {
 		$('#lista_movimentacoes_1g').append(
 			'<li>' + 
 			'<h5>' + m.dtMovimentacao + '</h5>' +
 			'<p> Descrição: ' + m.dsMovimentacao + ' </p>' +
 			'<p> Complemento: ' + m.dsComplemento + ' </p>' +  
 			'</li>');
-	}
+	});
 }
 
 function carregarProcessoPorId(id) {
