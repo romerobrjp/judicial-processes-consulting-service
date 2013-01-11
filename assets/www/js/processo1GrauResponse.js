@@ -16,17 +16,16 @@ $('#processo1GrauInfo').bind('pageshow', function(event) {
 	}
 });
 
-$('#partes1GrauInfo').live('pageshow', function(event) {
+$('#partes1GrauInfo').bind('pageshow', function(event) {
 	carregarPartesProcesso(proc);
 });
 
-$('#processo1GrauInfo').live('pageshow', function(event) {
+$('#processo1GrauInfo').bind('pageshow', function(event) {
 	carregarMovimentacoesProcesso(proc);
 });
 
 //consulta proc 1º grau
 function consultarProcesso1Grau(numProcesso) {
-	var proc = new Processo();
 	var parte;
 	var mov;
 	
@@ -88,12 +87,10 @@ function consultarProcesso1Grau(numProcesso) {
 				mov.dsMovimentacao = $(this).find('dsMovimentacao').text();
 				mov.dsComplemento = $(this).find('dsComplemento').text();
 				
-				proc.movimentacoes.push(mov);
+				proc.movimentacoes.push(mov);				
 			});
 			
 			carregarInfosProcesso(proc);
-			carregarPartesProcesso(proc);
-			carregarMovimentacoesProcesso(proc);
 			
 //			if (!verificarProcessoPorNumero()) {
 //				arquivarProcesso(proc);
