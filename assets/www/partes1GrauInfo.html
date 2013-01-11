@@ -1,7 +1,11 @@
 <meta charset="iso-8859-1">
 <div data-role="page" id="partes1GrauInfo">
 	<script type="text/javascript">
-		alert(proc.partes.length)
+		document.addEventListener("deviceready", function() {
+			$('#partes1GrauInfo').bind('pageshow', function(event) {
+				carregarPartesProcesso(proc);
+			});
+		}, false);		
 	</script>
 
 	<div data-role="header">

@@ -1,5 +1,13 @@
 <meta charset="iso-8859-1">
 <div data-role="page" id="movimentacoes1GrauInfo">
+	<script type="text/javascript">
+		document.addEventListener("deviceready", function() {
+			$('#movimentacoes1GrauInfo').bind('pageshow', function(event) {
+				carregarMovimentacoesProcesso(proc);
+			});
+		}, false);		
+	</script>
+
 	<div data-role="header">
         <img src="img/logo-consulta-processual.png" />
 

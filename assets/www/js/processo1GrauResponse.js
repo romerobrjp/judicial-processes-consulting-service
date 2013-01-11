@@ -1,31 +1,6 @@
 var numProcesso = "";
 var proc = new Processo();
 
-document.addEventListener("deviceready", function() {
-	$('#processo1GrauInfo').bind('pageshow', function(event) {
-		//numProcesso = $('#valor_consulta').val();
-		numProcesso = '00520120004162';
-		
-		var processoId = getUrlVars()["processoId"];
-		
-		if (processoId != null && processoId != undefined && processoId != "") {
-			alert("proc vindo da url: " + processoId);
-			carregarProcessoPorId(processoId);
-		}
-		else {
-			consultarProcesso1Grau(numProcesso);
-		}
-	});
-	
-	$('#partes1GrauInfo').bind('pageshow', function(event) {
-		carregarPartesProcesso(proc);
-	});
-
-	$('#processo1GrauInfo').bind('pageshow', function(event) {
-		carregarMovimentacoesProcesso(proc);
-	});
-}, false);
-
 //consulta proc 1º grau
 function consultarProcesso1Grau(numProcesso) {
 	var parte;
@@ -78,6 +53,7 @@ function consultarProcesso1Grau(numProcesso) {
 				parte.stParte = $(this).find('stParte').text();
 				parte.advogados = $(this).find('advogados').text();
 				parte.nuDoc = $(this).find('nuDoc').text();
+				
 				proc.partes.push(parte);
 			});
 			
@@ -91,7 +67,7 @@ function consultarProcesso1Grau(numProcesso) {
 				
 				proc.movimentacoes.push(mov);				
 			});
-			alert(proc.nuProcesso);
+			alert(proc.partes[0].nmParte);
 			carregarInfosProcesso(proc);
 			
 //			if (!verificarProcessoPorNumero()) {
@@ -112,7 +88,8 @@ function carregarInfosProcesso(proc) {
 }
 
 function carregarPartesProcesso(proc) {
-	alert("partes - " + proc.nuProcesso);
+	$('#lista_partes_1g').empty();
+	alert("partes - " + proc.partes[0].nmParte);
 	for (var p in proc.partes) {
 		$('#lista_partes_1g').append(
 			'<li> <h5>' + p.nmParte + '</h5>' + 
@@ -124,7 +101,8 @@ function carregarPartesProcesso(proc) {
 }
 
 function carregarMovimentacoesProcesso(proc) {
-	alert("movs - " + proc.nuProcesso);
+	$('#lista_movimentacoes_1g').empty();
+	
 	for (var m in proc.movimentacoes) {
 		$('#lista_movimentacoes_1g').append(
 			'<li>' + 
