@@ -752,6 +752,12 @@
 	
 	
 	<div data-role="page" data-title="Histórico de consultas" id="historicoConsultas">
+		<script type="text/javascript">
+			$('#historicoConsultas').bind('pageshow', function(event) {
+				listarProcessos();				
+			});
+		</script>
+		
 	    <div data-role="header">	    	
        		<div class="centralizar">	    	
        			<img id="logo" src="img/logo-consulta-processual.png" />

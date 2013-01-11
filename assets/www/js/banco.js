@@ -144,7 +144,7 @@ function listarProcessos() {
 					    $('#lista_historico').listview('refresh');
 					},
 					function queryError(err) {
-						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
+						alert('Erro no executeSQL de LISTAR PROCESSOS: ' + err.code + ' - ' + err.message);
 					}
 				)
 			},
