@@ -21,9 +21,9 @@ function configurarBanco() {
 }
 
 function gerarTabelas(tx) {
-//	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
-//	tx.executeSql("DROP TABLE IF EXISTS PARTES");
-//	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
+	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
+	tx.executeSql("DROP TABLE IF EXISTS PARTES");
+	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
 	
 	//CRIANDO AS TABELAS
 	console.log("---CRIANDO TABELAS---");
@@ -358,15 +358,16 @@ function arquivarProcesso(processo) {
 
 		db.transaction(
 			function(tx) {
-//				alert(sql);
 				tx.executeSql(
 					sql,
 					[],
 					function querySuccess(tx, results) {
 						processoId = results.insertId;
-						alert("processoId: " + results.insertId);
-						alert("processoId: " + processoId);
 						console.log("---Sucesso ao inserir tabela Processo!");
+						
+						arquivarPartes(processo, processoId);
+						arquivarMovimentacoes(processo, processoId);
+						
 						return true; 
 					},		
 					function queryError(err) {
@@ -375,55 +376,62 @@ function arquivarProcesso(processo) {
 					}
 				);
 			}		
-		);		
-//		alert("processoId: " + processoId);
-		//persistindo as partes ------------------------------------------------------------------------------------------------
-		for (i=0; i<processo.partes.length; i++) {
-			sql = "INSERT INTO PARTES (NM_PARTE, TIPO_PARTE, ST_PARTE, ADVOGADOS, NU_DOC, PROCESSO_ID) VALUES " +
-				"('" + processo.partes[i].nmParte + "', '" + processo.partes[i].tipoParte + "', '" + processo.partes[i].stParte + 
-				"', '" + processo.partes[i].advogados + "', '" + processo.partes[i].nuDoc + "', '" + processoId + "')";
-//			alert(sql);
-//			alert("Partes processoId: " + processoId);
-			db.transaction(
-				function(tx) {
-					tx.executeSql(sql);
-				},
-				[],
-				function querySuccess() {
-					console.log("---Sucesso ao inserir tabela PARTES!");
-					return true;
-				},
-				function queryError(err) {
-					alert("Erro ao inserir " + i + "ª parte: " + err.code + ' - ' + err.message);
-					return false;
-				}
-			);				
-		}
-		
-		//persistindo as movimentacoes -----------------------------------------------------------------------------------------------
-//		for (var m in processo.movimentacoes) {
-//			sql = "INSERT INTO MOVIMENTACOES (DT_MOVIMENTACAO, DS_MOVIMENTACAO, DS_COMPLEMENTO, DT_NASCIMENTO, NM_PAI, NM_MAE, PROCESSO_ID) VALUES " +
-//				"('" + processo.movimentacoes[i].dtMovimentacao + "', '" + processo.movimentacoes[i].dsMovimentacao + 
-//				"', '" + processo.movimentacoes[i].dsComplemento + "', '" + processo.movimentacoes[i].dtNascimento + 
-//				"', '" + processo.movimentacoes[i].nmPai + "', '" + processo.movimentacoes[i].nmMae + "', '" + processoId + "')";
-////			alert(sql);
-//			db.transaction(
-//				function(tx) {
-//					tx.executeSql(sql);
-//				},
-//				[],
-//				function querySuccess() {
-//					console.log("---Sucesso ao inserir tabela MOVIMENTACOES!");
-//					return true;
-//				},
-//				function queryError(err) {
-//					alert("Erro ao inserir " + i + "ª movimentação: " + err.code + ' - ' + err.message);
-//					return false;
-//				}
-//			);			
-//		}
+		);
 	}
 	else {
 		alert("Sem banco ativo para efetuar transação.");
+	}
+}
+
+function arquivarPartes(processo, processoId) {
+	//persistindo as partes ------------------------------------------------------------------------------------------------
+	$(processo.partes).each(function(i, p) {
+		sql = "INSERT INTO PARTES (NM_PARTE, TIPO_PARTE, ST_PARTE, ADVOGADOS, NU_DOC, PROCESSO_ID) VALUES " +
+			"('" + processo.p.nmParte + "', '" + processo.p.tipoParte + "', '" + processo.p.stParte + 
+			"', '" + processo.p.advogados + "', '" + processo.p.nuDoc + "', '" + processoId + "')";
+//		alert("Partes processoId: " + processoId);
+		db.transaction(
+			function(tx) {
+				tx.executeSql(
+					sql,
+					[],
+					function querySuccess() {
+						console.log("---Sucesso ao inserir tabela PARTES!");
+						return true;
+					},
+					function queryError(err) {
+						alert("Erro ao inserir " + i + "ª parte: " + err.code + ' - ' + err.message);
+						return false;
+					}
+				);
+			}
+		);		
+	}
+}
+
+function arquivarMovimentacoes(processo, processoId) {
+	//persistindo as movimentacoes -----------------------------------------------------------------------------------------------
+	$(proc.movimentacoes).each(function(i, m) {
+		sql = "INSERT INTO MOVIMENTACOES (DT_MOVIMENTACAO, DS_MOVIMENTACAO, DS_COMPLEMENTO, DT_NASCIMENTO, NM_PAI, NM_MAE, PROCESSO_ID) VALUES " +
+			"('" + processo.m.dtMovimentacao + "', '" + processo.m.dsMovimentacao + 
+			"', '" + processo.m.dsComplemento + "', '" + processo.m.dtNascimento + 
+			"', '" + processo.m.nmPai + "', '" + processo.m.nmMae + "', '" + processoId + "')";
+		
+		db.transaction(
+			function(tx) {
+				tx.executeSql(
+					sql,
+					[],
+					function querySuccess() {
+						console.log("---Sucesso ao inserir tabela MOVIMENTACOES!");
+						return true;
+					},
+					function queryError(err) {
+						alert("Erro ao inserir " + i + "ª movimentação: " + err.code + ' - ' + err.message);
+						return false;
+					}
+				);
+			}
+		);			
 	}
 }
