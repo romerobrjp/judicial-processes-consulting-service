@@ -101,7 +101,7 @@ function listarProcessos() {
 				tx.executeSql(
 					sqlProcesso, 
 					[], 
-					function consultaSucesso(tx, results) {
+					function querySuccess(tx, results) {
 						var len = results.rows.length;
 						
 						if (len == 0) {
@@ -143,7 +143,7 @@ function listarProcessos() {
 					    }
 					    $('#lista_historico').listview('refresh');
 					},
-					function(err) {
+					function queryError(err) {
 						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
 					}
 				)
@@ -389,14 +389,13 @@ function arquivarPartes(processo, processoId) {
 			"('" + p.nmParte + "', '" + p.tipoParte + "', '" + p.stParte + 
 			"', '" + p.advogados + "', '" + p.nuDoc + "', '" + processoId + "')";
 		
-		alert("Partes processoId: " + processoId);
-		
 		db.transaction(
 			function(tx) {
 				tx.executeSql(
 					sql,
 					[],
 					function querySuccess() {
+						alert("Partes processoId: " + processoId);
 						console.log("---Sucesso ao inserir tabela PARTES!");
 						return true;
 					},
@@ -418,14 +417,13 @@ function arquivarMovimentacoes(processo, processoId) {
 			"', '" + m.dsComplemento + "', '" + m.dtNascimento + 
 			"', '" + m.nmPai + "', '" + m.nmMae + "', '" + processoId + "')";
 		
-		alert("Partes processoId: " + processoId);
-		
 		db.transaction(
 			function(tx) {
 				tx.executeSql(
 					sql,
 					[],
 					function querySuccess() {
+						alert("Movs processoId: " + processoId);
 						console.log("---Sucesso ao inserir tabela MOVIMENTACOES!");
 						return true;
 					},
