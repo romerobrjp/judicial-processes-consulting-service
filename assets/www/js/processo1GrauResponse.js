@@ -67,7 +67,7 @@ function consultarProcesso1Grau(numProcesso) {
 				
 				proc.movimentacoes.push(mov);				
 			});
-			alert(proc.partes[0].nmParte);
+			
 			carregarInfosProcesso(proc);
 			
 //			if (!verificarProcessoPorNumero()) {
@@ -98,6 +98,8 @@ function carregarPartesProcesso(proc) {
 			'<p> Advogados: ' + p.advogados + ' </p>' +
 			'<p> Documento: ' + p.nuDoc + ' </p> </li>');
 	});
+	
+	$("#lista_partes_1g").listview('refresh');
 }
 
 function carregarMovimentacoesProcesso(proc) {
@@ -111,6 +113,8 @@ function carregarMovimentacoesProcesso(proc) {
 			'<p> Complemento: ' + m.dsComplemento + ' </p>' +  
 			'</li>');
 	});
+	
+	$("#lista_movimentacoes_1g").listview('refresh');
 }
 
 function carregarProcessoPorId(id) {
