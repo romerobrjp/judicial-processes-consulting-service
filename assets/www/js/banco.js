@@ -347,7 +347,6 @@ function excluirConultasExcedentes() {
 	return quant;
 }
 
-
 function arquivarProcesso(processo) {
 	var processoId = null;
 	
@@ -387,9 +386,11 @@ function arquivarPartes(processo, processoId) {
 	//persistindo as partes ------------------------------------------------------------------------------------------------
 	$(processo.partes).each(function(i, p) {
 		sql = "INSERT INTO PARTES (NM_PARTE, TIPO_PARTE, ST_PARTE, ADVOGADOS, NU_DOC, PROCESSO_ID) VALUES " +
-			"('" + processo.p.nmParte + "', '" + processo.p.tipoParte + "', '" + processo.p.stParte + 
-			"', '" + processo.p.advogados + "', '" + processo.p.nuDoc + "', '" + processoId + "')";
-//		alert("Partes processoId: " + processoId);
+			"('" + p.nmParte + "', '" + p.tipoParte + "', '" + p.stParte + 
+			"', '" + p.advogados + "', '" + p.nuDoc + "', '" + processoId + "')";
+		
+		alert("Partes processoId: " + processoId);
+		
 		db.transaction(
 			function(tx) {
 				tx.executeSql(
@@ -406,16 +407,18 @@ function arquivarPartes(processo, processoId) {
 				);
 			}
 		);		
-	}
+	});
 }
 
 function arquivarMovimentacoes(processo, processoId) {
 	//persistindo as movimentacoes -----------------------------------------------------------------------------------------------
 	$(proc.movimentacoes).each(function(i, m) {
 		sql = "INSERT INTO MOVIMENTACOES (DT_MOVIMENTACAO, DS_MOVIMENTACAO, DS_COMPLEMENTO, DT_NASCIMENTO, NM_PAI, NM_MAE, PROCESSO_ID) VALUES " +
-			"('" + processo.m.dtMovimentacao + "', '" + processo.m.dsMovimentacao + 
-			"', '" + processo.m.dsComplemento + "', '" + processo.m.dtNascimento + 
-			"', '" + processo.m.nmPai + "', '" + processo.m.nmMae + "', '" + processoId + "')";
+			"('" + m.dtMovimentacao + "', '" + m.dsMovimentacao + 
+			"', '" + m.dsComplemento + "', '" + m.dtNascimento + 
+			"', '" + m.nmPai + "', '" + m.nmMae + "', '" + processoId + "')";
+		
+		alert("Partes processoId: " + processoId);
 		
 		db.transaction(
 			function(tx) {
@@ -433,5 +436,5 @@ function arquivarMovimentacoes(processo, processoId) {
 				);
 			}
 		);			
-	}
+	});
 }
