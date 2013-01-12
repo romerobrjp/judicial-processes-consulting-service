@@ -33,7 +33,8 @@ function gerarTabelas(tx) {
 	tx.executeSql("CREATE TABLE IF NOT EXISTS PROCESSO " +
 			"(" +
 			"ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			"CATEGORIA VARCHAR(20), " +
+			"COD_CATEGORIA VARCHAR(10), " +
+			"DESC_CATEGORIA VARCHAR(20), " +
 			"NU_PROCESSO VARCHAR(30), " +
 			"NU_PROCESSO_1_GRAU VARCHAR(30), " +
 			"CLASSE VARCHAR(20), " +
@@ -112,19 +113,19 @@ function listarProcessos() {
 						
 					    for (var i=0; i<len; i++) {
 					    	var link;
-					    	if (results.rows.item(i).CATEGORIA == '1grau') {
+					    	if (results.rows.item(i).COD_CATEGORIA == '1grau') {
 					    		link = "processo1GrauInfo.html";
 					    	}
-					    	else if (results.rows.item(i).CATEGORIA == '2grau') {
+					    	else if (results.rows.item(i).COD_CATEGORIA == '2grau') {
 					    		link = "processo2GrauInfo.html";
 					    	}
-					    	else if (results.rows.item(i).CATEGORIA == 'juizadoEspecial') {
+					    	else if (results.rows.item(i).COD_CATEGORIA == 'juizadoEspecial') {
 					    		link = "processoJuizadoEspecInfo.html";
 					    	}
-					    	else if (results.rows.item(i).CATEGORIA == 'turmaRecursal') {
+					    	else if (results.rows.item(i).COD_CATEGORIA == 'turmaRecursal') {
 					    		link = "processoTurmaRecInfo.html";
 					    	}
-					    	else if (results.rows.item(i).CATEGORIA == 'execucaoPenal') {
+					    	else if (results.rows.item(i).COD_CATEGORIA == 'execucaoPenal') {
 					    		link = "processoExecPenalInfo.html";
 					    	}
 
@@ -139,7 +140,7 @@ function listarProcessos() {
 				    		
 				    		$('#lista_historico').append('<li data-icon="arrow-r" data-iconpos="right"> <a href="' + link + 
 			    				'?processoId=' + results.rows.item(i).ID + '"> <h3>' +
-				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p>' + results.rows.item(i).CATEGORIA + '</p> </a> </li>');
+				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class=' + results.rows.item(i).COD_CATEGORIA + '>' + results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
 					    }
 					    $('#lista_historico').listview('refresh');
 					},
@@ -351,15 +352,13 @@ function arquivarProcesso(processo) {
 	var processoId = null;
 	
 	if (db) {
-		var sql = "INSERT INTO PROCESSO (CATEGORIA, NU_PROCESSO, CLASSE, ST_PROCESSO, VARA, DT_DISTRIBUICAO, VL_ACAO) VALUES " +
-			"('" + processo.categoria + "', '" + processo.nuProcesso + "', '" + processo.classe + "', '" + processo.stProcesso + 
-			"', '" + processo.vara + "', '" + processo.dtDistribuicao + "', '" + processo.vlAcao + "')";
+		var sql = "INSERT INTO PROCESSO (COD_CATEGORIA, DESC_CATEGORIA, NU_PROCESSO, CLASSE, ST_PROCESSO, VARA, DT_DISTRIBUICAO, VL_ACAO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		db.transaction(
 			function(tx) {
 				tx.executeSql(
 					sql,
-					[],
+					[processo.codCategoria, processo.descCategoria, processo.nuProcesso, processo.classe, processo.stProcesso, processo.vara, processo.dtDistribuicao, processo.vlAcao],
 					function querySuccess(tx, results) {
 						processoId = results.insertId;
 						console.log("---Sucesso ao inserir tabela Processo!");
@@ -385,17 +384,14 @@ function arquivarProcesso(processo) {
 function arquivarPartes(processo, processoId) {
 	//persistindo as partes ------------------------------------------------------------------------------------------------
 	$(processo.partes).each(function(i, p) {
-		sql = "INSERT INTO PARTES (NM_PARTE, TIPO_PARTE, ST_PARTE, ADVOGADOS, NU_DOC, PROCESSO_ID) VALUES " +
-			"('" + p.nmParte + "', '" + p.tipoParte + "', '" + p.stParte + 
-			"', '" + p.advogados + "', '" + p.nuDoc + "', '" + processoId + "')";
+		sql = "INSERT INTO PARTES (NM_PARTE, TIPO_PARTE, ST_PARTE, ADVOGADOS, NU_DOC, PROCESSO_ID) VALUES (?, ?, ?, ?, ?, ?)";
 		
 		db.transaction(
 			function(tx) {
 				tx.executeSql(
 					sql,
-					[],
+					[p.nmParte, p.tipoParte, p.stParte, p.advogados, p.nuDoc, processoId],
 					function querySuccess() {
-						alert("Partes processoId: " + processoId);
 						console.log("---Sucesso ao inserir tabela PARTES!");
 						return true;
 					},
@@ -413,17 +409,14 @@ function arquivarMovimentacoes(processo, processoId) {
 	//persistindo as movimentacoes -----------------------------------------------------------------------------------------------
 	$(proc.movimentacoes).each(function(i, m) {
 		sql = "INSERT INTO MOVIMENTACOES (DT_MOVIMENTACAO, DS_MOVIMENTACAO, DS_COMPLEMENTO, DT_NASCIMENTO, NM_PAI, NM_MAE, PROCESSO_ID) VALUES " +
-			"('" + m.dtMovimentacao + "', '" + m.dsMovimentacao + 
-			"', '" + m.dsComplemento + "', '" + m.dtNascimento + 
-			"', '" + m.nmPai + "', '" + m.nmMae + "', '" + processoId + "')";
+			"(?, ?, ?, ?, ?, ?, ?)";
 		
 		db.transaction(
 			function(tx) {
 				tx.executeSql(
 					sql,
-					[],
+					[m.dtMovimentacao, m.dsMovimentacao, m.dsComplemento, m.dtNascimento, m.nmPai, m.nmMae, processoId],
 					function querySuccess() {
-						alert("Movs processoId: " + processoId);
 						console.log("---Sucesso ao inserir tabela MOVIMENTACOES!");
 						return true;
 					},

@@ -3,3 +3,23 @@
 .centralizar {
 	text-align: center;
 }
+
+.1grau {
+	color: blue;
+}
+
+.2grau {
+	color: red;
+}
+
+.juizadoEspecial {
+	color: orange;
+}
+
+.turmaRecursal {
+	color: green;
+}
+
+.execucaoPenal {
+	color: gray;
+}

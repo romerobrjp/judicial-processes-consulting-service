@@ -36,7 +36,8 @@ function consultarProcesso1Grau(numProcesso) {
 //			}
 
 			//salvando infos do proc
-			proc.categoria = "1grau";
+			proc.codCategoria = "1grau";
+			proc.descCategoria = "1º Grau";
 			proc.nuProcesso = xml.find('nuProcesso').text();
 			proc.classe = xml.find('classe').text();
 			proc.stProcesso = xml.find('stProcesso').text();

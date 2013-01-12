@@ -1,5 +1,6 @@
 this.Processo = function() {
-	this.categoria = "";
+	this.codCategoria = "";
+	this.descCategoria = "";
 	this.nuProcesso = "";
 	this.nuProcesso1Grau = "";
 	this.classe = "";
