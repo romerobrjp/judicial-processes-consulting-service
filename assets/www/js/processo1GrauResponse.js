@@ -39,6 +39,7 @@ function consultarProcesso1Grau(numProcesso) {
 			proc.codCategoria = "1grau";
 			proc.descCategoria = "1º Grau";
 			proc.nuProcesso = xml.find('nuProcesso').text();
+			proc.nuNovo = xml.find('nuProcessoCnj').text();
 			proc.classe = xml.find('classe').text();
 			proc.stProcesso = xml.find('stProcesso').text();
 			proc.vara = xml.find('vara').text();
@@ -81,6 +82,7 @@ function consultarProcesso1Grau(numProcesso) {
 
 function carregarInfosProcesso(proc) {
 	$('#nuProcesso_1g').html(proc.nuProcesso);
+	$('#nuNovo_1g').html(proc.nuNovo);	
 	$('#classe_1g').text(proc.classe);
 	$('#stProcesso_1g').text(proc.stProcesso);
 	$('#vara_1g').text(proc.vara);
@@ -120,6 +122,7 @@ function carregarMovimentacoesProcesso(proc) {
 
 function carregarProcessoPorId(id) {
 	var proc = pegarProcessoPorId(id);
+	alert(proc.nuProcesso);
 	
 	carregarInfosProcesso(proc);
 	carregarPartesProcesso(proc);

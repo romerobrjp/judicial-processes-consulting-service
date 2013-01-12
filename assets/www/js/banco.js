@@ -36,6 +36,7 @@ function gerarTabelas(tx) {
 			"COD_CATEGORIA VARCHAR(10), " +
 			"DESC_CATEGORIA VARCHAR(20), " +
 			"NU_PROCESSO VARCHAR(30), " +
+			"NU_NOVO VARCHAR(30), " +
 			"NU_PROCESSO_1_GRAU VARCHAR(30), " +
 			"CLASSE VARCHAR(20), " +
 			"CLASSE_ORIGEM VARCHAR(20), " +
@@ -92,12 +93,6 @@ function listarProcessos() {
 			function(tx) {
 				var id = null;
 				var sqlProcesso = "SELECT * FROM PROCESSO";
-				var sqlPartes = "SELECT * FROM PROCESSO " +
-				"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-				"WHERE PROCESSO.ID = " + id;
-				var sqlMovs = "SELECT * FROM PROCESSO " +
-				"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-				"WHERE PROCESSO.ID = " + id;
 				
 				tx.executeSql(
 					sqlProcesso, 
@@ -129,15 +124,6 @@ function listarProcessos() {
 					    		link = "processoExecPenalInfo.html";
 					    	}
 
-//				    		$('#lista_historico').append(
-//				    			'<li>' + 
-//				    				'<h3>' + results.rows.item(i).NU_PROCESSO + ' </h3> ' + 
-//					    			'<p>' + results.rows.item(i).CATEGORIA + '</p>' + 
-//				    				'<ul>' +
-//				    					'<li>' + results.rows.item(i).NU_PROCESSO + '</li>' +
-//				    				'</ul>' +
-//			    				'</li>');				    		
-				    		
 				    		$('#lista_historico').append('<li data-icon="arrow-r" data-iconpos="right"> <a href="' + link + 
 			    				'?processoId=' + results.rows.item(i).ID + '"> <h3>' +
 				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class=' + results.rows.item(i).COD_CATEGORIA + '>' + results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
@@ -176,12 +162,20 @@ function pegarProcessoPorId(id) {
 //					"JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
 //					"WHERE PROCESSO.ID = " + id;
 			var sql = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = " + id;
+			var sqlPartes = "SELECT * FROM PROCESSO " +
+			"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
+			"WHERE PROCESSO.ID = " + id;
+			var sqlMovs = "SELECT * FROM PROCESSO " +
+			"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
+			"WHERE PROCESSO.ID = " + id;
+			
 			tx.executeSql(
 				sql, 
 				[],
 				function consultaSucesso(tx, results) {
 					if (results.rows.length > 0) {
-						processo.categoria = results.rows.item(0).CATEGORIA;
+						processo.codCategoria = results.rows.item(0).COD_CATEGORIA;
+						processo.descCategoria = results.rows.item(0).DESC_CATEGORIA;
 						processo.nuProcesso = results.rows.item(0).NU_PROCESSO;
 						processo.classe = results.rows.item(0).CLASSE;
 						processo.stProcesso = results.rows.item(0).ST_PROCESSO;
@@ -205,6 +199,7 @@ function pegarProcessoPorId(id) {
 			}
 		);
 	}
+	alert(processo.nuProcesso);
 	return processo;
 }
 
@@ -255,30 +250,27 @@ function carregarConsultaArquivadaPorId(id) {
 
 function verificarProcessoPorNumero(numero) {
 	if (db) {
-		db.transaction(function(tx) {
-			var sql = "SELECT * FROM PROCESSO WHERE NU_PROCESSO LIKE '" + numero + "'";
-			tx.executeSql(
-				sql, 
-				[],
-				function consultaSucesso(tx, results) {					
-					if (results.rows.length == 0) {
-						return false;
-					} else if (results.rows.length > 0) {
-						return true;
-					}
-				},
-				function(err) {
-					alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
-				})
-		},
-		function errorCB(err) {
-			alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
-			return false;
-		}, 
-		function successCB() {
-			console.log("Sucesso na consulta de PROCESSO por NUMERO!");
-			return true;
-		});
+		db.transaction(
+			function(tx) {
+				var sql = "SELECT * FROM PROCESSO WHERE NU_PROCESSO LIKE ?";
+				tx.executeSql(
+					sql, 
+					[numero],
+					function querySuccess(tx, results) {					
+						if (results.rows.length == 0) {
+							return false;
+						} else if (results.rows.length > 0) {
+							return true;
+						}
+					},
+					function queryError(err) {
+						alert('Erro no executeSQL de verificarProcessoPorNumero: ' + err.code + ' - ' + err.message);
+					});
+			},
+			function errorCB(err) {
+			    alert("Error processing SQL: " + err.code);
+			}
+		);
 	}
 }
 
@@ -286,32 +278,26 @@ function pegarProcessoIdPorNumero(numero) {
 	var processoId = null;
 	
 	if (db) {
-		db.transaction(function(tx) {
-			var sql = "SELECT ID FROM PROCESSO WHERE NU_PROCESSO LIKE '" + numero + "'";
-			alert(sql);
-			tx.executeSql(
-				sql, 
-				[],
-				function consultaSucesso(tx, results) {
-					var len = results.rows.length;
-					alert(len + "quant pegarProcessoId");
-					if (len > 0) {
-						processoId = results.rows.item(0).ID;
-						alert("processoId: " + processoId);
+		db.transaction(
+			function(tx) {
+				var sql = "SELECT ID FROM PROCESSO WHERE NU_PROCESSO LIKE ?";
+				tx.executeSql(
+					sql, 
+					[numero],
+					function querySuccess(tx, results) {
+						var len = results.rows.length;
+						alert(len + "quant pegarProcessoId");
+						if (len > 0) {
+							processoId = results.rows.item(0).ID;
+							alert("processoId: " + processoId);
+						}
+					},
+					function queryError(err) {
+						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
 					}
-				},
-				function(err) {
-					alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
-				})
-		},
-		function errorCB(err) {
-			alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
-			return false;
-		}, 
-		function successCB() {
-			console.log("Sucesso na consulta de PROCESSO por NUMERO!");
-			return true;
-		});
+				);
+			}
+		);
 	}
 	alert("pegarProcessoIdPorNumero: " + processoId);
 	return processoId;
@@ -321,29 +307,23 @@ function excluirConultasExcedentes() {
 	var maxConsultas = 20;
 	var quant = 0;
 	if (db) {
-		db.transaction(function(tx) {
-			var sql = "SELECT * FROM PROCESSO";
-			tx.executeSql(
-				sql, 
-				[],
-				function consultaSucesso(tx, results) {
-					quant = results.rows.length;
-					if (quant > maxConsultas) {
-						alert(quant - maxConsultas + " consultas a mais que o permitido");
-					} 
-				},
-				function(err) {
-					alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
-				})
-		},
-		function errorCB(err) {
-			alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
-			return false;
-		}, 
-		function successCB() {
-			console.log("Sucesso na consulta de quantConsultasArquivadas!");
-			return true;
-		});
+		db.transaction(
+			function(tx) {
+				var sql = "SELECT * FROM PROCESSO";
+				tx.executeSql(
+					sql, 
+					[],
+					function consultaSucesso(tx, results) {
+						quant = results.rows.length;
+						if (quant > maxConsultas) {
+							alert(quant - maxConsultas + " consultas a mais que o permitido");
+						} 
+					},
+					function(err) {
+						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
+					})
+			}
+		);
 	}
 	return quant;
 }
@@ -352,13 +332,13 @@ function arquivarProcesso(processo) {
 	var processoId = null;
 	
 	if (db) {
-		var sql = "INSERT INTO PROCESSO (COD_CATEGORIA, DESC_CATEGORIA, NU_PROCESSO, CLASSE, ST_PROCESSO, VARA, DT_DISTRIBUICAO, VL_ACAO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		var sql = "INSERT INTO PROCESSO (COD_CATEGORIA, DESC_CATEGORIA, NU_PROCESSO, NU_NOVO, CLASSE, ST_PROCESSO, VARA, DT_DISTRIBUICAO, VL_ACAO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		db.transaction(
 			function(tx) {
 				tx.executeSql(
 					sql,
-					[processo.codCategoria, processo.descCategoria, processo.nuProcesso, processo.classe, processo.stProcesso, processo.vara, processo.dtDistribuicao, processo.vlAcao],
+					[processo.codCategoria, processo.descCategoria, processo.nuProcesso, processo.nuNovo, processo.classe, processo.stProcesso, processo.vara, processo.dtDistribuicao, processo.vlAcao],
 					function querySuccess(tx, results) {
 						processoId = results.insertId;
 						

@@ -2,6 +2,7 @@ this.Processo = function() {
 	this.codCategoria = "";
 	this.descCategoria = "";
 	this.nuProcesso = "";
+	this.nuNovo = "";
 	this.nuProcesso1Grau = "";
 	this.classe = "";
 	this.classeOrigem = "";
