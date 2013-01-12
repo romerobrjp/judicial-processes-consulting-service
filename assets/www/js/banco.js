@@ -21,9 +21,9 @@ function configurarBanco() {
 }
 
 function gerarTabelas(tx) {
-	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
-	tx.executeSql("DROP TABLE IF EXISTS PARTES");
-	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
+//	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
+//	tx.executeSql("DROP TABLE IF EXISTS PARTES");
+//	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
 	
 	//CRIANDO AS TABELAS
 	console.log("---CRIANDO TABELAS---");
@@ -91,7 +91,7 @@ function listarProcessos() {
 		db.transaction(
 			function(tx) {
 				var id = null;
-				var sqlProcesso = "SELECT *, CATEGORIA FROM PROCESSO";
+				var sqlProcesso = "SELECT * FROM PROCESSO";
 				var sqlPartes = "SELECT * FROM PROCESSO " +
 				"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
 				"WHERE PROCESSO.ID = " + id;
@@ -361,7 +361,6 @@ function arquivarProcesso(processo) {
 					[processo.codCategoria, processo.descCategoria, processo.nuProcesso, processo.classe, processo.stProcesso, processo.vara, processo.dtDistribuicao, processo.vlAcao],
 					function querySuccess(tx, results) {
 						processoId = results.insertId;
-						console.log("---Sucesso ao inserir tabela Processo!");
 						
 						arquivarPartes(processo, processoId);
 						arquivarMovimentacoes(processo, processoId);
@@ -384,7 +383,7 @@ function arquivarProcesso(processo) {
 function arquivarPartes(processo, processoId) {
 	//persistindo as partes ------------------------------------------------------------------------------------------------
 	$(processo.partes).each(function(i, p) {
-		sql = "INSERT INTO PARTES (NM_PARTE, TIPO_PARTE, ST_PARTE, ADVOGADOS, NU_DOC, PROCESSO_ID) VALUES (?, ?, ?, ?, ?, ?)";
+		var sql = "INSERT INTO PARTES (NM_PARTE, TIPO_PARTE, ST_PARTE, ADVOGADOS, NU_DOC, PROCESSO_ID) VALUES(?, ?, ?, ?, ?, ?)";
 		
 		db.transaction(
 			function(tx) {
@@ -407,8 +406,8 @@ function arquivarPartes(processo, processoId) {
 
 function arquivarMovimentacoes(processo, processoId) {
 	//persistindo as movimentacoes -----------------------------------------------------------------------------------------------
-	$(proc.movimentacoes).each(function(i, m) {
-		sql = "INSERT INTO MOVIMENTACOES (DT_MOVIMENTACAO, DS_MOVIMENTACAO, DS_COMPLEMENTO, DT_NASCIMENTO, NM_PAI, NM_MAE, PROCESSO_ID) VALUES " +
+	$(processo.movimentacoes).each(function(i, m) {
+		var sql = "INSERT INTO MOVIMENTACOES (DT_MOVIMENTACAO, DS_MOVIMENTACAO, DS_COMPLEMENTO, DT_NASCIMENTO, NM_PAI, NM_MAE, PROCESSO_ID) VALUES " +
 			"(?, ?, ?, ?, ?, ?, ?)";
 		
 		db.transaction(
