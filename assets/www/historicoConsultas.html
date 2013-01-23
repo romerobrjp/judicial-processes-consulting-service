@@ -1,0 +1,31 @@
+<div data-role="page" data-title="Histórico de consultas" id="historicoConsultas">
+	<script type="text/javascript">
+		$('#historicoConsultas').bind('pageshow', function(event) {
+			$('#lista_historico').empty();
+			listarProcessosArquivados();
+		});
+	</script>
+	
+    <div data-role="header">	    	
+      		<div class="centralizar">	    	
+      			<img id="logo" src="img/logo-consulta-processual.png" />
+      		</div>
+		
+		<div data-role="navbar">
+			<ul>
+<!-- 					<li><a href="#" onclick="navigator.app.exitApp();" data-iconpos="top" data-icon="delete">Sair</a></li> -->
+				<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
+			</ul>
+		</div><!-- /navbar -->
+    </div>
+    
+    <div data-role="content">
+		<ol id="lista_historico" data-role="listview" data-filter="true">
+			
+		</ol>
+    </div>
+
+	<div data-role="footer">
+		<h4>Tribunal de Justiça da Paraíba - 2013</h4>
+	</div>
+</div>

@@ -72,9 +72,12 @@ function consultarProcesso1Grau(numProcesso) {
 			
 			carregarInfosProcesso(proc);
 			
-//			if (!verificarProcessoPorNumero()) {
+			var podeCadastrar = verificarProcessoPorNumero(proc.nuProcesso);
+			alert('registro já existe? ' + podeCadastrar);
+//			if (!verificarProcessoPorNumero(proc.nuProcesso)) {
 				arquivarProcesso(proc);
 //			}
+			
 		}
 		//error: alert('Não foi possível realizar a consulta')
 	});

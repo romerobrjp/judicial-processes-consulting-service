@@ -9,9 +9,10 @@
 				
 				if (processoId != null && processoId != undefined && processoId != "") {
 					alert("proc vindo da url: " + processoId);
-					carregarProcessoPorId(processoId);
+					carregarConsultaArquivadaPorId(processoId);
 				}
 				else {
+					alert("consultarProcesso1Grau()");
 					consultarProcesso1Grau(numProcesso);
 				}
 			});

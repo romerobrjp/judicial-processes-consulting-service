@@ -21,9 +21,9 @@ function configurarBanco() {
 }
 
 function gerarTabelas(tx) {
-//	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
-//	tx.executeSql("DROP TABLE IF EXISTS PARTES");
-//	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
+	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
+	tx.executeSql("DROP TABLE IF EXISTS PARTES");
+	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
 	
 	//CRIANDO AS TABELAS
 	console.log("---CRIANDO TABELAS---");
@@ -52,7 +52,8 @@ function gerarTabelas(tx) {
 			"DT_AUTUACAO VARCHAR(10), " +
 			"TURMA VARCHAR(30), " +
 			"PRESIDENTE VARCHAR(50), " +
-			"RELATOR VARCHAR(50)" +
+			"RELATOR VARCHAR(50), " +
+			"QUANDO DATE DEFAULT (DATETIME('NOW')) " +
 			")");
 	
 	//PARTES DO PROCESSO
@@ -65,7 +66,8 @@ function gerarTabelas(tx) {
 			"ST_PARTE VARCHAR(10), " +
 			"ADVOGADOS VARCHAR(100), " +
 			"NU_DOC VARCHAR(20), " +
-			"PROCESSO_ID INTEGER," +
+			"PROCESSO_ID INTEGER, " +
+			"QUANDO DATE DEFAULT (DATETIME('NOW')), " +
 			"FOREIGN KEY(PROCESSO_ID) REFERENCES PROCESSO(ID)" +
 			")");
 	
@@ -81,13 +83,14 @@ function gerarTabelas(tx) {
 			"NM_MAE VARCHAR(100), " +
 			"DT_NASCIMENTO, " +
 			"PROCESSO_ID INTEGER, " +
+			"QUANDO DATE DEFAULT (DATETIME('NOW')), " +
 			"FOREIGN KEY(PROCESSO_ID) REFERENCES PROCESSO(ID)" +
 			")");
 	
 	console.log("---TABELAS CRIADAS---");
 }
 
-function listarProcessos() {
+function listarProcessosArquivados() {
 	if (db) {
 		db.transaction(
 			function(tx) {
@@ -126,7 +129,7 @@ function listarProcessos() {
 
 				    		$('#lista_historico').append('<li data-icon="arrow-r" data-iconpos="right"> <a href="' + link + 
 			    				'?processoId=' + results.rows.item(i).ID + '"> <h3>' +
-				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class=' + results.rows.item(i).COD_CATEGORIA + '>' + results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
+				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class="' + results.rows.item(i).COD_CATEGORIA + '">' + results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
 					    }
 					    $('#lista_historico').listview('refresh');
 					},
@@ -161,18 +164,22 @@ function pegarProcessoPorId(id) {
 //					"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
 //					"JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
 //					"WHERE PROCESSO.ID = " + id;
-			var sql = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = " + id;
+			var sql = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = ?";
+			
 			var sqlPartes = "SELECT * FROM PROCESSO " +
 			"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-			"WHERE PROCESSO.ID = " + id;
+			"WHERE PROCESSO.ID = ? " +
+			"ORDER BY PARTES.WHEN";
+			
 			var sqlMovs = "SELECT * FROM PROCESSO " +
 			"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-			"WHERE PROCESSO.ID = " + id;
+			"WHERE PROCESSO.ID = ? " +
+			"ORDER BY MOVIMENTACOES.WHEN";
 			
 			tx.executeSql(
 				sql, 
-				[],
-				function consultaSucesso(tx, results) {
+				[id],
+				function querySuccess(tx, results) {
 					if (results.rows.length > 0) {
 						processo.codCategoria = results.rows.item(0).COD_CATEGORIA;
 						processo.descCategoria = results.rows.item(0).DESC_CATEGORIA;
@@ -184,20 +191,11 @@ function pegarProcessoPorId(id) {
 						processo.vlAcao = results.rows.item(0).VL_ACAO;
 					}
 				},
-				function(err) {
+				function queryError(err) {
 					alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
-				})
-			},
-			[],
-			function() {
-				console.log("Sucesso na consulta de PROCESSO por ID!");
-				return true;
-			},
-			function(err) {
-				alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
-				return false;
-			}
-		);
+				}
+			);
+		});
 	}
 	alert(processo.nuProcesso);
 	return processo;
@@ -205,46 +203,52 @@ function pegarProcessoPorId(id) {
 
 function carregarConsultaArquivadaPorId(id) {
 	if (db) {
-		db.transaction(function(tx) {
-//			var sql = "SELECT * FROM PROCESSO " +
-//					"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-//					"JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-//					"WHERE PROCESSO.ID = " + id;
-			var sqlProcesso = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = " + id;
-			var sqlPartes = "SELECT * FROM PROCESSO " +
-							"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-							"WHERE PROCESSO.ID = " + id;
-			var sqlMovs = "SELECT * FROM PROCESSO " +
-							"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-							"WHERE PROCESSO.ID = " + id;
-			tx.executeSql(
-				sql, 
-				[],
-				function consultaSucesso(tx, results) {
-					if (results.rows.length > 0) {
-						if (results.rows.item(0).CATEGORIA == '1grau') {
-							//carregando infos do processo			
-							$('#nuProcesso_1g').text(results.rows.item(0).NU_PROCESSO);
-							$('#classe_1g').text(results.rows.item(0).CLASSE);
-							$('#stProcesso_1g').text(results.rows.item(0).ST_PROCESSo);
-							$('#vara_1g').text(results.rows.item(0).VARA);
-							$('#dtDistribuicao_1g').text(results.rows.item(0).DT_DISTRIBUICAO);
-							$('#vlAcao_1g').text(results.rows.item(0).VL_ACAO);
+		db.transaction(
+			function(tx) {
+	//			var sql = "SELECT * FROM PROCESSO " +
+	//					"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
+	//					"JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
+	//					"WHERE PROCESSO.ID = " + id;
+				var sqlProcesso = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = ?";
+				var sqlPartes = "SELECT * FROM PROCESSO " +
+								"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
+								"WHERE PROCESSO.ID = ?";
+				var sqlMovs = "SELECT * FROM PROCESSO " +
+								"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
+								"WHERE PROCESSO.ID = ?";
+				tx.executeSql(
+					sqlProcesso, 
+					[id],
+					function querySuccess(tx, results) {
+						alert(results.rows.length);
+						if (results.rows.length > 0) {
+							if (results.rows.item(0).CATEGORIA == '1grau') {
+								//carregando infos do processo
+								alert("arquivado: " + results.rows.item(0).NU_PROCESSO);
+								$('#nuProcesso_1g').text(results.rows.item(0).NU_PROCESSO);
+								$('#nuProcesso_1g').text(results.rows.item(0).NU_NOVO);
+								$('#classe_1g').text(results.rows.item(0).CLASSE);
+								$('#stProcesso_1g').text(results.rows.item(0).ST_PROCESSo);
+								$('#vara_1g').text(results.rows.item(0).VARA);
+								$('#dtDistribuicao_1g').text(results.rows.item(0).DT_DISTRIBUICAO);
+								$('#vlAcao_1g').text(results.rows.item(0).VL_ACAO);
+							}
 						}
+					},
+					function queryError(err) {
+						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
 					}
-				},
-				function(err) {
-					alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
-				})
-		},
-		function errorCB(err) {
-			alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
-			return false;
-		}, 
-		function successCB() {
-			console.log("Sucesso na consulta de PROCESSO por ID!");
-			return true;
-		});
+				);
+			},
+			function errorCB(err) {
+				alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
+				return false;
+			}, 
+			function successCB() {
+				console.log("Sucesso na consulta de PROCESSO por ID!");
+				return true;
+			}
+		);
 	}
 }
 
@@ -257,10 +261,11 @@ function verificarProcessoPorNumero(numero) {
 					sql, 
 					[numero],
 					function querySuccess(tx, results) {					
-						if (results.rows.length == 0) {
-							return false;
-						} else if (results.rows.length > 0) {
+						if (results.rows.length > 0) {
 							return true;
+						}
+						else {
+							return false;
 						}
 					},
 					function queryError(err) {
@@ -330,6 +335,10 @@ function excluirConultasExcedentes() {
 
 function arquivarProcesso(processo) {
 	var processoId = null;
+	
+	var processoJaExiste = verificarProcessoPorNumero(processo.nuProcesso);
+	
+	alert('Processo ja existe: ' + processoJaExiste);
 	
 	if (db) {
 		var sql = "INSERT INTO PROCESSO (COD_CATEGORIA, DESC_CATEGORIA, NU_PROCESSO, NU_NOVO, CLASSE, ST_PROCESSO, VARA, DT_DISTRIBUICAO, VL_ACAO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
