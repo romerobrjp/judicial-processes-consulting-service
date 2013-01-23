@@ -212,17 +212,16 @@ function carregarConsultaArquivadaPorId(id) {
 				var sqlProcesso = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = ?";
 				var sqlPartes = "SELECT * FROM PROCESSO " +
 								"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-								"WHERE PROCESSO.ID = ?";
+								"WHERE PROCESSO.ID = ? ORDER BY QUANDO";
 				var sqlMovs = "SELECT * FROM PROCESSO " +
 								"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-								"WHERE PROCESSO.ID = ?";
+								"WHERE PROCESSO.ID = ? ORDER BY QUANDO";
 				tx.executeSql(
 					sqlProcesso, 
 					[id],
 					function querySuccess(tx, results) {
-						alert(results.rows.length);
 						if (results.rows.length > 0) {
-							if (results.rows.item(0).CATEGORIA == '1grau') {
+							if (results.rows.item(0).COD_CATEGORIA == '1grau') {
 								//carregando infos do processo
 								alert("arquivado: " + results.rows.item(0).NU_PROCESSO);
 								$('#nuProcesso_1g').text(results.rows.item(0).NU_PROCESSO);
