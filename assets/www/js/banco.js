@@ -1,5 +1,5 @@
 var db;
-var processoId = null;
+var processoIdDaUrl = null;
 
 function erro(e) {
 	console.log("transacao erro");
@@ -21,9 +21,9 @@ function configurarBanco() {
 }
 
 function gerarTabelas(tx) {
-	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
-	tx.executeSql("DROP TABLE IF EXISTS PARTES");
-	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
+//	tx.executeSql("DROP TABLE IF EXISTS MOVIMENTACOES");
+//	tx.executeSql("DROP TABLE IF EXISTS PARTES");
+//	tx.executeSql("DROP TABLE IF EXISTS PROCESSO");
 	
 	//CRIANDO AS TABELAS
 	console.log("---CRIANDO TABELAS---");
@@ -100,7 +100,7 @@ function listarProcessosArquivados() {
 				tx.executeSql(
 					sqlProcesso, 
 					[], 
-					function querySuccess(tx, results) {
+					function (tx, results) {
 						var len = results.rows.length;
 						
 						if (len == 0) {
@@ -126,14 +126,16 @@ function listarProcessosArquivados() {
 					    	else if (results.rows.item(i).COD_CATEGORIA == 'execucaoPenal') {
 					    		link = "processoExecPenalInfo.html";
 					    	}
-
+					    	
 				    		$('#lista_historico').append('<li data-icon="arrow-r" data-iconpos="right"> <a href="' + link + 
 			    				'?processoId=' + results.rows.item(i).ID + '"> <h3>' +
-				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class="' + results.rows.item(i).COD_CATEGORIA + '">' + results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
-					    }
+				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class="' + results.rows.item(i).COD_CATEGORIA + '">' 
+				        		+ results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
+					    }					    
+					    $('#quant_consultas').text(len + " Consultas Arquivadas");
 					    $('#lista_historico').listview('refresh');
 					},
-					function queryError(err) {
+					function (err) {
 						alert('Erro no executeSQL de LISTAR PROCESSOS: ' + err.code + ' - ' + err.message);
 					}
 				)
@@ -153,79 +155,20 @@ function listarProcessosArquivados() {
 	}
 }
 
-function pegarProcessoPorId(id) {
-	var processo = new Processo();
-	var pate = new Parte();
-	var mov = new Movimentacao();
-	
-	if (db) {
-		db.transaction(function(tx) {
-//			var sql = "SELECT * FROM PROCESSO " +
-//					"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-//					"JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-//					"WHERE PROCESSO.ID = " + id;
-			var sql = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = ?";
-			
-			var sqlPartes = "SELECT * FROM PROCESSO " +
-			"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-			"WHERE PROCESSO.ID = ? " +
-			"ORDER BY PARTES.WHEN";
-			
-			var sqlMovs = "SELECT * FROM PROCESSO " +
-			"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-			"WHERE PROCESSO.ID = ? " +
-			"ORDER BY MOVIMENTACOES.WHEN";
-			
-			tx.executeSql(
-				sql, 
-				[id],
-				function querySuccess(tx, results) {
-					if (results.rows.length > 0) {
-						processo.codCategoria = results.rows.item(0).COD_CATEGORIA;
-						processo.descCategoria = results.rows.item(0).DESC_CATEGORIA;
-						processo.nuProcesso = results.rows.item(0).NU_PROCESSO;
-						processo.classe = results.rows.item(0).CLASSE;
-						processo.stProcesso = results.rows.item(0).ST_PROCESSO;
-						processo.vara = results.rows.item(0).VARA;
-						processo.dtDistribuicao = results.rows.item(0).DT_DISTRIBUICAO;
-						processo.vlAcao = results.rows.item(0).VL_ACAO;
-					}
-				},
-				function queryError(err) {
-					alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
-				}
-			);
-		});
-	}
-	alert(processo.nuProcesso);
-	return processo;
-}
-
-function carregarConsultaArquivadaPorId(id) {
+function carregarInfoProcessoArquivadoPorId(id) {
 	if (db) {
 		db.transaction(
 			function(tx) {
-	//			var sql = "SELECT * FROM PROCESSO " +
-	//					"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-	//					"JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-	//					"WHERE PROCESSO.ID = " + id;
-				var sqlProcesso = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = ?";
-				var sqlPartes = "SELECT * FROM PROCESSO " +
-								"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
-								"WHERE PROCESSO.ID = ? ORDER BY QUANDO";
-				var sqlMovs = "SELECT * FROM PROCESSO " +
-								"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID" +
-								"WHERE PROCESSO.ID = ? ORDER BY QUANDO";
+				var sql = "SELECT * FROM PROCESSO WHERE PROCESSO.ID = ?";
 				tx.executeSql(
-					sqlProcesso, 
+					sql, 
 					[id],
-					function querySuccess(tx, results) {
+					function (tx, results) {
 						if (results.rows.length > 0) {
 							if (results.rows.item(0).COD_CATEGORIA == '1grau') {
 								//carregando infos do processo
-								alert("arquivado: " + results.rows.item(0).NU_PROCESSO);
 								$('#nuProcesso_1g').text(results.rows.item(0).NU_PROCESSO);
-								$('#nuProcesso_1g').text(results.rows.item(0).NU_NOVO);
+								$('#nuNovo_1g').text(results.rows.item(0).NU_NOVO);
 								$('#classe_1g').text(results.rows.item(0).CLASSE);
 								$('#stProcesso_1g').text(results.rows.item(0).ST_PROCESSo);
 								$('#vara_1g').text(results.rows.item(0).VARA);
@@ -234,7 +177,7 @@ function carregarConsultaArquivadaPorId(id) {
 							}
 						}
 					},
-					function queryError(err) {
+					function (err) {
 						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
 					}
 				);
@@ -251,36 +194,96 @@ function carregarConsultaArquivadaPorId(id) {
 	}
 }
 
-function verificarProcessoPorNumero(numero) {
+function carregarPartesArquivadasPorId(id) {
 	if (db) {
 		db.transaction(
 			function(tx) {
-				var sql = "SELECT * FROM PROCESSO WHERE NU_PROCESSO LIKE ?";
+				var sql = "SELECT * FROM PROCESSO " +
+								"INNER JOIN PARTES ON PROCESSO.ID = PARTES.PROCESSO_ID " +
+								"WHERE PROCESSO.ID = ? ORDER BY QUANDO";
 				tx.executeSql(
 					sql, 
-					[numero],
-					function querySuccess(tx, results) {					
+					[id],
+					function (tx, results) {
 						if (results.rows.length > 0) {
-							return true;
-						}
-						else {
-							return false;
+							if (results.rows.item(0).COD_CATEGORIA == '1grau') {
+								//carregando partes do processo								
+								for (i=0; i<results.rows.length; i++) {
+									$('#lista_partes_1g').append(
+										'<li> <h5>' + results.rows.item(i).NM_PARTE + '</h5>' + 
+										'<p> Tipo: ' + results.rows.item(i).TIPO_PARTE + ' </p>' +
+										'<p> Situação: ' + results.rows.item(i).ST_PARTE + ' </p>' +
+										'<p> Advogados: ' + results.rows.item(i).ADVOGADOS + ' </p>' +
+										'<p> Documento: ' + results.rows.item(i).NU_DOC + ' </p> </li>');
+								}
+								$('#quant_partes').text(results.rows.length + " Partes ");
+								$("#lista_partes_1g").listview('refresh');
+							}
 						}
 					},
-					function queryError(err) {
-						alert('Erro no executeSQL de verificarProcessoPorNumero: ' + err.code + ' - ' + err.message);
-					});
+					function (err) {
+						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
+					}
+				);
 			},
 			function errorCB(err) {
-			    alert("Error processing SQL: " + err.code);
+				alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
+				return false;
+			}, 
+			function successCB() {
+				console.log("Sucesso na consulta de PROCESSO por ID!");
+				return true;
 			}
 		);
 	}
 }
 
-function pegarProcessoIdPorNumero(numero) {
-	var processoId = null;
-	
+function carregarMovimentacoesArquivadasPorId(id) {
+	if (db) {
+		db.transaction(
+			function(tx) {
+				var sql = 	"SELECT * FROM PROCESSO " +
+							"INNER JOIN MOVIMENTACOES ON PROCESSO.ID = MOVIMENTACOES.PROCESSO_ID " +
+							"WHERE PROCESSO.ID = ? ORDER BY QUANDO";
+				tx.executeSql(
+					sql, 
+					[id],
+					function (tx, results) {
+						if (results.rows.length > 0) {
+							if (results.rows.item(0).COD_CATEGORIA == '1grau') {
+								//carregando movimentacoes do processo								
+								for (i=0; i<results.rows.length; i++) {
+									$('#lista_movimentacoes_1g').append(
+										'<li>' + 
+										'<h5>' + results.rows.item(i).DT_MOVIMENTACAO + '</h5>' +
+										'<p> Descrição: ' + results.rows.item(i).DS_MOVIMENTACAO + ' </p>' +
+										'<p> Complemento: ' + results.rows.item(i).DS_COMPLEMENTO + ' </p>' +  
+										'</li>');
+								}				
+								$('#quant_movimentacoes').text(results.rows.length + " Movimentações ");
+								$("#lista_movimentacoes_1g").listview('refresh');
+							}
+						}
+					},
+					function (err) {
+						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
+					}
+				);
+			},
+			function errorCB(err) {
+				alert("Erro no db.transaction: " + err.code + ' - ' + err.message);
+				return false;
+			}, 
+			function successCB() {
+				console.log("Sucesso na consulta de PROCESSO por ID!");
+				return true;
+			}
+		);
+	}
+}
+
+function pegarProcessoIdPorNumero(numero, cbSucesso) {
+	var processoId = 0;
 	if (db) {
 		db.transaction(
 			function(tx) {
@@ -288,26 +291,25 @@ function pegarProcessoIdPorNumero(numero) {
 				tx.executeSql(
 					sql, 
 					[numero],
-					function querySuccess(tx, results) {
+					function(tx, results) {
 						var len = results.rows.length;
-						alert(len + "quant pegarProcessoId");
+						
 						if (len > 0) {
-							processoId = results.rows.item(0).ID;
-							alert("processoId: " + processoId);
+							processoId = results.rows.item(0).ID;	
 						}
+						
+						cbSucesso(processoId);
 					},
-					function queryError(err) {
+					function(err) {
 						alert('Erro no executeSQL: ' + err.code + ' - ' + err.message);
 					}
 				);
 			}
 		);
 	}
-	alert("pegarProcessoIdPorNumero: " + processoId);
-	return processoId;
 }
 
-function excluirConultasExcedentes() {
+function excluirConsultasExcedentes() {
 	var maxConsultas = 20;
 	var quant = 0;
 	if (db) {
@@ -317,7 +319,7 @@ function excluirConultasExcedentes() {
 				tx.executeSql(
 					sql, 
 					[],
-					function consultaSucesso(tx, results) {
+					function(tx, results) {
 						quant = results.rows.length;
 						if (quant > maxConsultas) {
 							alert(quant - maxConsultas + " consultas a mais que o permitido");
@@ -335,10 +337,6 @@ function excluirConultasExcedentes() {
 function arquivarProcesso(processo) {
 	var processoId = null;
 	
-	var processoJaExiste = verificarProcessoPorNumero(processo.nuProcesso);
-	
-	alert('Processo ja existe: ' + processoJaExiste);
-	
 	if (db) {
 		var sql = "INSERT INTO PROCESSO (COD_CATEGORIA, DESC_CATEGORIA, NU_PROCESSO, NU_NOVO, CLASSE, ST_PROCESSO, VARA, DT_DISTRIBUICAO, VL_ACAO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -347,7 +345,7 @@ function arquivarProcesso(processo) {
 				tx.executeSql(
 					sql,
 					[processo.codCategoria, processo.descCategoria, processo.nuProcesso, processo.nuNovo, processo.classe, processo.stProcesso, processo.vara, processo.dtDistribuicao, processo.vlAcao],
-					function querySuccess(tx, results) {
+					function (tx, results) {
 						processoId = results.insertId;
 						
 						arquivarPartes(processo, processoId);
@@ -355,12 +353,12 @@ function arquivarProcesso(processo) {
 						
 						return true; 
 					},		
-					function queryError(err) {
+					function (err) {
 						alert("---Erro ao inserir Processo: " + err.code + ' - ' + err.message);
 						return false;
 					}
 				);
-			}		
+			}	
 		);
 	}
 	else {
@@ -378,11 +376,11 @@ function arquivarPartes(processo, processoId) {
 				tx.executeSql(
 					sql,
 					[p.nmParte, p.tipoParte, p.stParte, p.advogados, p.nuDoc, processoId],
-					function querySuccess() {
+					function () {
 						console.log("---Sucesso ao inserir tabela PARTES!");
 						return true;
 					},
-					function queryError(err) {
+					function (err) {
 						alert("Erro ao inserir " + i + "ª parte: " + err.code + ' - ' + err.message);
 						return false;
 					}
@@ -403,11 +401,11 @@ function arquivarMovimentacoes(processo, processoId) {
 				tx.executeSql(
 					sql,
 					[m.dtMovimentacao, m.dsMovimentacao, m.dsComplemento, m.dtNascimento, m.nmPai, m.nmMae, processoId],
-					function querySuccess() {
+					function () {
 						console.log("---Sucesso ao inserir tabela MOVIMENTACOES!");
 						return true;
 					},
-					function queryError(err) {
+					function (err) {
 						alert("Erro ao inserir " + i + "ª movimentação: " + err.code + ' - ' + err.message);
 						return false;
 					}
@@ -415,4 +413,36 @@ function arquivarMovimentacoes(processo, processoId) {
 			}
 		);			
 	});
+}
+
+function arquivarConsulta(processo) {
+	pegarProcessoIdPorNumero(processo.nuProcesso, function(id) {
+		db.transaction(
+			function(tx) {
+				var sqlDeleteProcesso = "DELETE FROM PROCESSO WHERE ID = ?";
+
+				tx.executeSql(sqlDeleteProcesso, [id], function(tx, results) {
+					var sqlDeletePartes = "DELETE FROM PARTES WHERE PROCESSO_ID = ?";
+
+					tx.executeSql(sqlDeletePartes, [id], function(tx, results) {
+						var sqlDeleteMovimentacoes = "DELETE FROM MOVIMENTACOES WHERE PROCESSO_ID = ?";
+
+						tx.executeSql(sqlDeleteMovimentacoes, [id], function(tx, results) {
+							arquivarProcesso(processo);
+						}, 
+						function(error) {
+							alert("Deu erro ao tentar deletar as partes");
+						});
+					}, 
+					function(error) {
+						alert("Deu erro ao tentar deletar as movimentações");
+					});
+				},
+				function(error) {
+					alert("Deu erro ao tentar deletar o processo");
+				});
+			}
+		);
+
+	}); 
 }

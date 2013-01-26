@@ -1,8 +1,20 @@
+<meta charset="ISO-8859-1">
 <div data-role="page" id="partes1GrauInfo">
 	<script type="text/javascript">
 		document.addEventListener("deviceready", function() {
 			$('#partes1GrauInfo').bind('pageshow', function(event) {
-				carregarPartesProcesso(proc);
+				if (processoIdDaUrl != null && processoIdDaUrl != undefined && processoIdDaUrl != "") {
+					$('#lista_partes_1g').empty();
+					carregarPartesArquivadasPorId(processoIdDaUrl);					
+					$('#info_consultas_arquivadas').css('display', 'block');
+					$('#historico_consultas').css('display', 'block');
+				}
+				else {
+					$('#info_consultas_arquivdas').css('display', 'none');
+					$('#historico_consultas').css('display', 'none');
+					$('#lista_partes_1g').empty();
+					carregarPartesProcesso(proc);
+				}				
 			});
 		}, false);		
 	</script>
@@ -14,7 +26,8 @@
         
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
+				<li><a href="index.html" data-iconpos="top" data-icon="home">Início</a></li>
+				<li id="historico_consultas" style="display: none;"><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Listagem</a></li>
 			</ul>
 		</div><!-- /navbar -->
 		
@@ -23,6 +36,15 @@
 				<li><a href="processo1GrauInfo.html" data-icon="page">Processo</a></li>
 				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
 				<li><a href="movimentacoes1GrauInfo.html" data-icon="direction">Movimentacoes</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		
+		<div data-role="navbar" id="info_consultas_arquivadas" class="info_consultas_arquivadas">
+			<ul>
+				<li>
+					<p>Consultas Arquivadas<p>
+					<p id="quant_partes"></p>
+				</li>
 			</ul>
 		</div><!-- /navbar -->
     </div>

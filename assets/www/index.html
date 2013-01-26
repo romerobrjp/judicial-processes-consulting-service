@@ -29,7 +29,24 @@
 
 <body>
 	<div data-role="page" data-title="Home" id="index">
-	    <div data-role="header">
+		<script type="text/javascript">
+			document.addEventListener("deviceready", function() {
+				$(document).bind('mobileinit', function() {
+					$.mobile.defaultPageTransition = 'none';
+
+					$.mobile.loader.prototype.options.text = "Carregando...";
+					$.mobile.loader.prototype.options.textVisible = true;
+					$.mobile.loader.prototype.options.theme = "b";
+					$.mobile.loader.prototype.options.html = "";
+				});
+
+				$('#index').bind('pageshow', function(event) {
+					processoIdDaUrl = null;
+				});				
+			}, false);
+		</script>
+
+		<div data-role="header">
 	    	<div class="centralizar">	    	
        			<img id="logo" src="img/logo-consulta-processual.png" />
        		</div>

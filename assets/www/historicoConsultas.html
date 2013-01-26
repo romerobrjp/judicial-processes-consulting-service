@@ -1,7 +1,10 @@
+<meta charset="ISO-8859-1">
 <div data-role="page" data-title="Histórico de consultas" id="historicoConsultas">
 	<script type="text/javascript">
 		$('#historicoConsultas').bind('pageshow', function(event) {
 			$('#lista_historico').empty();
+			proc = new Processo();
+			processoIdDaUrl = null;
 			listarProcessosArquivados();
 		});
 	</script>
@@ -13,8 +16,15 @@
 		
 		<div data-role="navbar">
 			<ul>
-<!-- 					<li><a href="#" onclick="navigator.app.exitApp();" data-iconpos="top" data-icon="delete">Sair</a></li> -->
 				<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		
+		<div data-role="navbar" id="info_consultas_arquivadas" class="info_consultas_arquivadas">
+			<ul>
+				<li>
+					<p id="quant_consultas"></p>
+				</li>
 			</ul>
 		</div><!-- /navbar -->
     </div>

@@ -5,21 +5,28 @@
 }
 
 .1grau {
-	color: blue;
+	color: blue !important;
 }
 
 .2grau {
-	color: lightblue;
+	color: lightblue !important;
 }
 
 .juizadoEspecial {
-	color: orange;
+	color: orange !important;
 }
 
 .turmaRecursal {
-	color: green;
+	color: green !important;
 }
 
 .execucaoPenal {
-	color: red;
+	color: red !important;
+}
+
+.info_consultas_arquivadas {
+	display: none; 
+	text-align: center; 
+	background-color: gray; 
+	color: white;
 }

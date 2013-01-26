@@ -1,7 +1,6 @@
 var numProcesso = "";
 var proc = new Processo();
 
-//consulta proc 1º grau
 function consultarProcesso1Grau(numProcesso) {
 	var parte;
 	var mov;
@@ -67,16 +66,11 @@ function consultarProcesso1Grau(numProcesso) {
 				mov.dsMovimentacao = $(this).find('dsMovimentacao').text();
 				mov.dsComplemento = $(this).find('dsComplemento').text();
 				
-				proc.movimentacoes.push(mov);				
+				proc.movimentacoes.push(mov);
 			});
 			
 			carregarInfosProcesso(proc);
-			
-			var podeCadastrar = verificarProcessoPorNumero(proc.nuProcesso);
-			alert('registro já existe? ' + podeCadastrar);
-//			if (!verificarProcessoPorNumero(proc.nuProcesso)) {
-				arquivarProcesso(proc);
-//			}
+			arquivarConsulta(proc);
 			
 		}
 		//error: alert('Não foi possível realizar a consulta')
