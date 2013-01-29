@@ -69,7 +69,7 @@ function consultarProcesso1Grau(numProcesso) {
 				proc.movimentacoes.push(mov);
 			});
 			
-			carregarInfosProcesso(proc);
+			carregarInfosProcesso1Grau(proc);
 			arquivarConsulta(proc);
 			
 		}
@@ -77,7 +77,7 @@ function consultarProcesso1Grau(numProcesso) {
 	});
 }
 
-function carregarInfosProcesso(proc) {
+function carregarInfosProcesso1Grau(proc) {	
 	$('#nuProcesso_1g').html(proc.nuProcesso);
 	$('#nuNovo_1g').html(proc.nuNovo);	
 	$('#classe_1g').text(proc.classe);
@@ -85,11 +85,13 @@ function carregarInfosProcesso(proc) {
 	$('#vara_1g').text(proc.vara);
 	$('#dtDistribuicao_1g').text(proc.dtDistribuicao);
 	$('#vlAcao_1g').text(proc.vlAcao);
+	
+	$('#aviso_info_processo').empty();
+	$('#aviso_info_processo').text('Dados do Processo');
 }
 
-function carregarPartesProcesso(proc) {
+function carregarPartesProcesso1Grau(proc) {
 	$('#lista_partes_1g').empty();
-	
 	$(proc.partes).each(function(i, p) {
 		$('#lista_partes_1g').append(
 			'<li> <h5>' + p.nmParte + '</h5>' + 
@@ -97,14 +99,15 @@ function carregarPartesProcesso(proc) {
 			'<p> Situação: ' + p.stParte + ' </p>' +
 			'<p> Advogados: ' + p.advogados + ' </p>' +
 			'<p> Documento: ' + p.nuDoc + ' </p> </li>');
-	});
-	
+	});	
 	$("#lista_partes_1g").listview('refresh');
+	
+	$('#quant_partes').empty();	
+	$('#quant_partes').text(proc.partes.length + ' Partes');
 }
 
-function carregarMovimentacoesProcesso(proc) {
-	$('#lista_movimentacoes_1g').empty();
-	
+function carregarMovimentacoesProcesso1Grau(proc) {
+	$('#lista_movimentacoes_1g').empty();	
 	$(proc.movimentacoes).each(function(i, m) {
 		$('#lista_movimentacoes_1g').append(
 			'<li>' + 
@@ -112,18 +115,20 @@ function carregarMovimentacoesProcesso(proc) {
 			'<p> Descrição: ' + m.dsMovimentacao + ' </p>' +
 			'<p> Complemento: ' + m.dsComplemento + ' </p>' +  
 			'</li>');
-	});
-	
+	});	
 	$("#lista_movimentacoes_1g").listview('refresh');
+	
+	$('#quant_movimentacoes').empty();	
+	$('#quant_movimentacoes').text(proc.movimentacoes.length + ' Movimentações');
 }
 
-function carregarProcessoPorId(id) {
+function carregarProcesso1GrauPorId(id) {
 	var proc = pegarProcessoPorId(id);
 	alert(proc.nuProcesso);
 	
-	carregarInfosProcesso(proc);
-	carregarPartesProcesso(proc);
-	carregarMovimentacoesProcesso(proc);
+	carregarInfosProcesso1Grau(proc);
+	carregarPartesProcesso1Grau(proc);
+	carregarMovimentacoesProcesso1Grau(proc);
 }
 
 //swipes

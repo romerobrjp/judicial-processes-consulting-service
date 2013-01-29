@@ -13,7 +13,7 @@
 					$('#info_consultas_arquivadas').css('display', 'none');
 					$('#historico_consultas').css('display', 'none');
 					$('#lista_movimentacoes_1g').empty();
-					carregarMovimentacoesProcesso(proc);
+					carregarMovimentacoesProcesso1Grau(proc);
 				}
 			});			
 		}, false);
@@ -37,14 +37,8 @@
 			</ul>
 		</div><!-- /navbar -->
 		
-		<div data-role="navbar" id="info_consultas_arquivadas" class="info_consultas_arquivadas">
-			<ul>
-				<li>
-					<p>Consultas Arquivadas<p>
-					<p id="quant_movimentacoes"></p>
-				</li>
-			</ul>
-		</div><!-- /navbar -->
+		<div id="quant_movimentacoes" class="centralizar info_consulta">
+		</div>
     </div>
     
 	<div data-role="content">

@@ -132,7 +132,13 @@ function listarProcessosArquivados() {
 				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class="' + results.rows.item(i).COD_CATEGORIA + '">' 
 				        		+ results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
 					    }					    
-					    $('#quant_consultas').text(len + " Consultas Arquivadas");
+					    if (len == 1) {
+					    	$('#quant_consultas_arquivadas').text(len + " Consulta Arquivada");
+					    }
+					    else if (len > 1) {
+					    	$('#quant_consultas_arquivadas').text(len + " Consultas Arquivadas");
+					    }
+					    
 					    $('#lista_historico').listview('refresh');
 					},
 					function (err) {
@@ -166,7 +172,6 @@ function carregarInfoProcessoArquivadoPorId(id) {
 					function (tx, results) {
 						if (results.rows.length > 0) {
 							if (results.rows.item(0).COD_CATEGORIA == '1grau') {
-								//carregando infos do processo
 								$('#nuProcesso_1g').text(results.rows.item(0).NU_PROCESSO);
 								$('#nuNovo_1g').text(results.rows.item(0).NU_NOVO);
 								$('#classe_1g').text(results.rows.item(0).CLASSE);
@@ -174,6 +179,9 @@ function carregarInfoProcessoArquivadoPorId(id) {
 								$('#vara_1g').text(results.rows.item(0).VARA);
 								$('#dtDistribuicao_1g').text(results.rows.item(0).DT_DISTRIBUICAO);
 								$('#vlAcao_1g').text(results.rows.item(0).VL_ACAO);
+								
+								$('#aviso_info_processo').empty();
+								$('#aviso_info_processo').text('Consulta Arquivada - Dados do Processo');
 							}
 						}
 					},
@@ -205,9 +213,9 @@ function carregarPartesArquivadasPorId(id) {
 					sql, 
 					[id],
 					function (tx, results) {
-						if (results.rows.length > 0) {
+						var len = results.rows.length;
+						if (len > 0) {
 							if (results.rows.item(0).COD_CATEGORIA == '1grau') {
-								//carregando partes do processo								
 								for (i=0; i<results.rows.length; i++) {
 									$('#lista_partes_1g').append(
 										'<li> <h5>' + results.rows.item(i).NM_PARTE + '</h5>' + 
@@ -216,7 +224,9 @@ function carregarPartesArquivadasPorId(id) {
 										'<p> Advogados: ' + results.rows.item(i).ADVOGADOS + ' </p>' +
 										'<p> Documento: ' + results.rows.item(i).NU_DOC + ' </p> </li>');
 								}
-								$('#quant_partes').text(results.rows.length + " Partes ");
+								$('#quant_partes').empty();
+								$('#quant_partes').text('Consulta Arquivada - ' + len + ' Partes');
+								
 								$("#lista_partes_1g").listview('refresh');
 							}
 						}
@@ -249,18 +259,20 @@ function carregarMovimentacoesArquivadasPorId(id) {
 					sql, 
 					[id],
 					function (tx, results) {
-						if (results.rows.length > 0) {
+						var len = results.rows.length; 
+						if (len > 0) {
 							if (results.rows.item(0).COD_CATEGORIA == '1grau') {
-								//carregando movimentacoes do processo								
-								for (i=0; i<results.rows.length; i++) {
+								for (i=0; i<len; i++) {
 									$('#lista_movimentacoes_1g').append(
 										'<li>' + 
 										'<h5>' + results.rows.item(i).DT_MOVIMENTACAO + '</h5>' +
 										'<p> Descrição: ' + results.rows.item(i).DS_MOVIMENTACAO + ' </p>' +
 										'<p> Complemento: ' + results.rows.item(i).DS_COMPLEMENTO + ' </p>' +  
 										'</li>');
-								}				
-								$('#quant_movimentacoes').text(results.rows.length + " Movimentações ");
+								}								
+								$('#quant_movimentacoes').empty();
+								$('#quant_movimentacoes').text('Consulta Arquivada - ' + len + ' Movimentações');
+								
 								$("#lista_movimentacoes_1g").listview('refresh');
 							}
 						}

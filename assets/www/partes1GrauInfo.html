@@ -13,7 +13,7 @@
 					$('#info_consultas_arquivdas').css('display', 'none');
 					$('#historico_consultas').css('display', 'none');
 					$('#lista_partes_1g').empty();
-					carregarPartesProcesso(proc);
+					carregarPartesProcesso1Grau(proc);
 				}				
 			});
 		}, false);		
@@ -39,14 +39,8 @@
 			</ul>
 		</div><!-- /navbar -->
 		
-		<div data-role="navbar" id="info_consultas_arquivadas" class="info_consultas_arquivadas">
-			<ul>
-				<li>
-					<p>Consultas Arquivadas<p>
-					<p id="quant_partes"></p>
-				</li>
-			</ul>
-		</div><!-- /navbar -->
+		<div id="quant_partes" class="centralizar info_consulta">
+		</div>
     </div>
     
 	<div data-role="content">

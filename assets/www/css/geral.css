@@ -24,8 +24,8 @@
 	color: red !important;
 }
 
-.info_consultas_arquivadas {
-	display: none; 
+.info_consulta {
+	display: block; 
 	text-align: center; 
 	background-color: gray; 
 	color: white;
