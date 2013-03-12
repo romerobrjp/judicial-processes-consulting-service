@@ -6,7 +6,7 @@ function consultarProcesso1Grau(numProcesso) {
 	proc = new Processo();
 	var parte;
 	var mov;
-	
+	alert(numProcesso);
 	$('#lista_partes_1g').text("");
 	$('#lista_movimentacoes_1g').text("");
 	
@@ -31,10 +31,11 @@ function consultarProcesso1Grau(numProcesso) {
 		success: function(response) {
 			var xml = $(response);
 			
-//			if ( xml.find('nuProcesso').text() ==  '') {
-//				alert('Nenhum resultado para o número de proc informado.');
-//				return;
-//			}
+			if (xml.find('nuProcesso').text() ==  '' || xml.find('nuProcesso').text() == null || xml.find('nuProcesso').text() == undefined) {
+				alert('Nenhum resultado para processo de número '+numProcesso+'.');
+				$.mobile.changePage("index.html");
+				return null;
+			}
 
 			//salvando infos do proc
 			proc.codCategoria = "1grau";

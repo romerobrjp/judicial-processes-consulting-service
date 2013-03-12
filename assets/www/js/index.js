@@ -57,10 +57,10 @@ function limparInputConsulta() {
 function consultarPorNumero() {
 	var numProcesso = $('#valor_consulta').val();
 	
-//	if (numProcesso == '' || numProcesso == 'Digite aqui...') {
-//		alert('Informe um número de processo para efetuar a consulta.');
-//		return;
-//	}
+	if (numProcesso == '' || numProcesso == 'Digite aqui...') {
+		alert('Informe um número de processo para realizar a consulta.');
+		return null;
+	}
 	if (networkState == 'none') {
         $("#popup_aviso_internet").popup('open');
         return null;

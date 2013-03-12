@@ -3,9 +3,10 @@
 	<script type="text/javascript">
 		document.addEventListener("deviceready", function() {
 			$('#processo1GrauInfo').bind('pageshow', function(event) {
-				//numProcesso = $('#valor_consulta').val(); numProcesso = '00520120004162';
-				numProcesso = '20020060556384';
-				numProcesso = '20020120835729';
+				numProcesso = $('#valor_consulta').val(); 
+// 				numProcesso = '00520120004162';
+// 				numProcesso = '20020060556384';
+// 				numProcesso = '20020120835729';
 				
 				if (processoIdDaUrl == null || processoIdDaUrl == undefined || processoIdDaUrl == "") {
 					processoIdDaUrl = getUrlVars()["processoId"];
