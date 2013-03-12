@@ -1,3 +1,6 @@
+var networkState;
+var states = {};
+
 try {
 	configurarBanco();
 } 
@@ -9,11 +12,17 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 	checarConexao();
+	
+	$(document).bind("mobileinit", function(){
+		$.mobile.defaultPageTransition = 'slide';
+	});
 }
 
+
+
 function checarConexao() {
-    var networkState = navigator.network.connection.type;
-    var states = {};
+	networkState = navigator.network.connection.type;
+	
     states[Connection.UNKNOWN]  = 'unknown';
     states[Connection.ETHERNET] = 'ethernet';
     states[Connection.WIFI]     = 'wifi';
@@ -23,10 +32,8 @@ function checarConexao() {
     states[Connection.NONE]     = 'none';
 
     //alert(networkState + ' - ' + states[Connection.NONE]);
-    
     if (networkState == 'none') {
         $("#aviso_conexao").css('display', 'block');
-        $('#btConsultar').attr('onclick', 'alert("SEM ACESSO À INTERNET")');
     }
 }
 
@@ -54,6 +61,10 @@ function consultarPorNumero() {
 //		alert('Informe um número de processo para efetuar a consulta.');
 //		return;
 //	}
+	if (networkState == 'none') {
+        $("#popup_aviso_internet").popup('open');
+        return null;
+    }
 	
 	if($('#grau1').is(':checked') == true) {
 		$.mobile.changePage("processo1GrauInfo.html");

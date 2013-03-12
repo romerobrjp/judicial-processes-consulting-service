@@ -1,7 +1,9 @@
 var numProcesso = "";
 var proc = new Processo();
 
+//consultar processo 1º grau
 function consultarProcesso1Grau(numProcesso) {
+	proc = new Processo();
 	var parte;
 	var mov;
 	
@@ -50,7 +52,7 @@ function consultarProcesso1Grau(numProcesso) {
 				parte = new Parte();
 				
 				parte.nmParte = $(this).find('nmParte').text();
-				parte.tipoParte = $(this).find('tipoParte').text();
+				parte.tipoParte = $(this).find('tipoparte').text();
 				parte.stParte = $(this).find('stParte').text();
 				parte.advogados = $(this).find('advogados').text();
 				parte.nuDoc = $(this).find('nuDoc').text();
@@ -70,8 +72,7 @@ function consultarProcesso1Grau(numProcesso) {
 			});
 			
 			carregarInfosProcesso1Grau(proc);
-			arquivarConsulta(proc);
-			
+			arquivarConsulta(proc);			
 		}
 		//error: alert('Não foi possível realizar a consulta')
 	});
@@ -80,45 +81,47 @@ function consultarProcesso1Grau(numProcesso) {
 function carregarInfosProcesso1Grau(proc) {	
 	$('#nuProcesso_1g').html(proc.nuProcesso);
 	$('#nuNovo_1g').html(proc.nuNovo);	
-	$('#classe_1g').text(proc.classe);
-	$('#stProcesso_1g').text(proc.stProcesso);
-	$('#vara_1g').text(proc.vara);
-	$('#dtDistribuicao_1g').text(proc.dtDistribuicao);
-	$('#vlAcao_1g').text(proc.vlAcao);
+	$('#classe_1g').html(proc.classe);
+	$('#stProcesso_1g').html(proc.stProcesso);
+	$('#vara_1g').html(proc.vara);
+	$('#dtDistribuicao_1g').html(proc.dtDistribuicao);
+	$('#vlAcao_1g').html(proc.vlAcao);
 	
-	$('#aviso_info_processo').empty();
-	$('#aviso_info_processo').text('Dados do Processo');
+	$('#aviso_info_processo_1g').text('');
+	$('#aviso_info_processo_1g').text('Dados do Processo');
 }
 
 function carregarPartesProcesso1Grau(proc) {
-	$('#lista_partes_1g').empty();
+	//$('#lista_partes_1g').children().remove('li');
+	$('#lista_partes_1g li').not("#divider").remove();
+	
 	$(proc.partes).each(function(i, p) {
 		$('#lista_partes_1g').append(
 			'<li> <h5>' + p.nmParte + '</h5>' + 
-			'<p> Tipo: ' + p.tipoParte + ' </p>' +
-			'<p> Situação: ' + p.stParte + ' </p>' +
-			'<p> Advogados: ' + p.advogados + ' </p>' +
-			'<p> Documento: ' + p.nuDoc + ' </p> </li>');
+			'<p> <b> Tipo: </b>' + p.tipoParte + ' </p>' +
+			'<p> <b> Situação: </b>' + p.stParte + ' </p>' +
+			'<p> <b> Advogados: </b>' + p.advogados + ' </p>' +
+			'<p> <b> Documento: </b>' + p.nuDoc + ' </p> </li>');
 	});	
 	$("#lista_partes_1g").listview('refresh');
-	
-	$('#quant_partes').empty();	
-	$('#quant_partes').text(proc.partes.length + ' Partes');
+	$('#quant_partes_1grau').text('');	
+	$('#quant_partes_1grau').text(proc.partes.length + ' Partes');
 }
 
 function carregarMovimentacoesProcesso1Grau(proc) {
-	$('#lista_movimentacoes_1g').empty();	
+	//$('#lista_movimentacoes_1g').children().remove('li');
+	$('#lista_movimentacoes_1g li').not("#divider").remove();
+	
 	$(proc.movimentacoes).each(function(i, m) {
 		$('#lista_movimentacoes_1g').append(
 			'<li>' + 
 			'<h5>' + m.dtMovimentacao + '</h5>' +
-			'<p> Descrição: ' + m.dsMovimentacao + ' </p>' +
-			'<p> Complemento: ' + m.dsComplemento + ' </p>' +  
+			'<p> <b> Descrição: </b>' + m.dsMovimentacao + ' </p>' +
+			'<p> <b> Complemento: </b>' + m.dsComplemento + ' </p>' +  
 			'</li>');
 	});	
 	$("#lista_movimentacoes_1g").listview('refresh');
-	
-	$('#quant_movimentacoes').empty();	
+	$('#quant_movimentacoes').text('');	
 	$('#quant_movimentacoes').text(proc.movimentacoes.length + ' Movimentações');
 }
 

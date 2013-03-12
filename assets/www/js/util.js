@@ -10,3 +10,12 @@ function getUrlVars() {
     }
     return vars;
 }
+
+//$("#loading").ajaxStart(function(){
+////Quando a requisição começar, Exibe a DIV
+//   $(this).popup("open");
+//});
+//$("#loading").ajaxStop(function(){
+////Quando a requisição parar, Esconde a DIV
+//   $(this).popup("close");
+//});

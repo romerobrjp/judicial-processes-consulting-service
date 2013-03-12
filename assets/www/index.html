@@ -4,27 +4,27 @@
 	<meta charset="ISO-8859-1">
 	<title>Consulta Mobile</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/jquery_mobile.css" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.0.css" />
 	<link rel="stylesheet" href="css/jqm-icon-pack-2-original.css" />
 	<link rel="stylesheet" href="css/geral.css" />
 	
-	<script type="text/javascript" charset="iso-8859-1" src="js/cordova-2.2.0.js"></script>
-	<script type="text/javascript" charset="iso-8859-1" src="js/jquery.js"></script>
-	<script type="text/javascript" charset="iso-8859-1" src="js/jquery.mobile-1.2.0.js"></script>	 
-	<script type="text/javascript" charset="iso-8859-1" src="js/util.js"></script>
-	<script type="text/javascript" charset="iso-8859-1" src="js/xml2json.js"></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/cordova-2.2.0.js"></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/jquery.mobile-1.3.0.js"></script>	 
+	<script type="text/javascript" charset="ISO-8859-1" src="js/util.js"></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/xml2json.js"></script>
 	
-	<script type="text/javascript" charset="iso-8859-1" src="js/Movimentacao.js" ></script>
-	<script type="text/javascript" charset="iso-8859-1" src="js/Parte.js" ></script>
-	<script type="text/javascript" charset="iso-8859-1" src="js/Processo.js" ></script>
-	<script type="text/javascript" charset="iso-8859-1" src="js/banco.js" ></script>
-    <script type="text/javascript" charset="iso-8859-1" src="js/index.js" ></script>
-    <script type="text/javascript" charset="iso-8859-1" src="js/processo1GrauResponse.js" ></script>
-    <script type="text/javascript" charset="iso-8859-1" src="js/processo2GrauResponse.js" ></script>
-    <script type="text/javascript" charset="iso-8859-1" src="js/juizadoEspecialResponse.js" ></script>
-    <script type="text/javascript" charset="iso-8859-1" src="js/turmaRecursalResponse.js" ></script>
-    <script type="text/javascript" charset="iso-8859-1" src="js/execucaoPenalResponse.js" ></script>
-    <script type="text/javascript" charset="iso-8859-1" src="js/historicoConsultas.js" ></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/Movimentacao.js" ></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/Parte.js" ></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/Processo.js" ></script>
+	<script type="text/javascript" charset="ISO-8859-1" src="js/banco.js" ></script>
+    <script type="text/javascript" charset="ISO-8859-1" src="js/index.js" ></script>
+    <script type="text/javascript" charset="ISO-8859-1" src="js/processo1GrauResponse.js" ></script>
+    <script type="text/javascript" charset="ISO-8859-1" src="js/processo2GrauResponse.js" ></script>
+    <script type="text/javascript" charset="ISO-8859-1" src="js/juizadoEspecialResponse.js" ></script>
+    <script type="text/javascript" charset="ISO-8859-1" src="js/turmaRecursalResponse.js" ></script>
+    <script type="text/javascript" charset="ISO-8859-1" src="js/execucaoPenalResponse.js" ></script>
+    <script type="text/javascript" charset="ISO-8859-1" src="js/historicoConsultas.js" ></script>
 </head> 
 
 <body>
@@ -56,7 +56,7 @@
 					<li><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Consultas Arquivadas</a></li>
 					<li><a href="#" onclick="navigator.app.exitApp();" data-iconpos="top" data-icon="delete">Sair</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div>
 			
 			<div data-role="navbar" id="aviso_conexao" style="display: none; text-align: center; background-color: red; color: white;">
 				<ul>
@@ -64,7 +64,7 @@
 						<p>SEM CONEXÃO COM A INTERNET<p>
 					</li>
 				</ul>
-			</div><!-- /navbar -->
+			</div>
 	    </div>
 	    
 	    <div data-role="content">
@@ -84,6 +84,11 @@
 			    <input type="text" name="valor_consulta" id="valor_consulta" value="Digite aqui..." style="color: #ccc;"
 			    onfocus="this.value = this.value == 'Digite aqui...' ? '' : this.value; this.style.color='#000';" 
 			    onblur="this.value = this.value == '' ? this.value = 'Digite aqui...' : this.value; this.value =='Digite aqui...' ? this.style.color='#ccc' : this.style.color='#000'" />
+			</div>
+			
+			<div data-role="popup" id="popup_aviso_internet" data-theme="a">
+			    <p> Sem conexão com a internet! <p>
+				<p> Que tal navegar pelas consultas arquivadas? </p>
 			</div>
 			
 			<div class="centralizar">
@@ -108,175 +113,7 @@
 	<!-- --------------------------------------------- PROCESSO 2º GRAU ------------------------------------------------------ -->
 	<!-- --------------------------------------------------------------------------------------------------------------------- -->
 
-	<div data-role="page" id="processo2GrauInfo">
-		<div data-role="header">
-	        <div class="centralizar">	    	
-       			<img id="logo" src="img/logo-consulta-processual.png" />
-       		</div>
 
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
-					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-	    </div>
-	
-	    <div data-role="content">
-			<ul data-role="listview" id="processo_detalhes_2g">
-				<li>
-					<h3>Nº Processo</h3>
-					<p id="nuProcesso_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Processo 1º grau</h3>
-					<p id="nuProcesso1Grau_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Classe</h3>
-					<p id="classe_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Última distribuição</h3>
-					<p id="dtDistribuicao_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Vara</h3>
-					<p id="vara_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Órgão</h3>
-					<p id="nmOrgao_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Tipo da distribuição</h3>
-					<p id="tdDistribuição_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Local</h3>
-					<p id="nmLocal_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Volume</h3>
-					<p id="nmVolume_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Entrada</h3>
-					<p id="dtEntrada_2g"></p>
-				</li>
-				
-				<li>
-					<h3>Relator</h3>
-					<p id="nmRelator_2g"></p>
-				</li>
-			</ul>
-	    </div>
-	    
-	    <div data-role="footer">
-	    	<div data-role="navbar">
-				<ul>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
-					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
-		</div>
-	</div>
-	
-	<!-- --------------------------------------------------------------------------------------------------------------------- -->
-	
-	<div data-role="page" id="partes2GrauInfo">
-		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
-
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-	    </div>
-	    
-		<div data-role="content">
-			<ol data-role="listview" id="lista_partes_2g" data-filter="true">
-							
-			</ol>
-		</div>
-		
-		<div data-role="footer">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-					<li><a href="#movimentacoes2GrauInfo" data-icon="direction">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
-		</div>
-	</div>
-	
-	<!-- --------------------------------------------------------------------------------------------------------------------- -->
-	
-	<div data-role="page" id="movimentacoes2GrauInfo">
-		<div data-role="header">
-	        <img src="img/logo-consulta-processual.png" />
-
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#index" data-iconpos="top" data-icon="home">Início</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-	    </div>
-	    
-		<div data-role="content">
-			<ol data-role="listview" id="lista_movimentacoes_2g" data-filter="true">
-							
-			</ol>
-		</div>
-		
-		<div data-role="footer">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#processo2GrauInfo" data-icon="page">Processo</a></li>
-					<li><a href="#partes2GrauInfo" data-icon="grid">Partes</a></li>
-					<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			<h4>Tribunal de Justiça da Paraíba - 2013</h4>
-		</div>
-	</div> <!-- movimentacoes2GrauInfo  -->
 	
 	<!-- --------------------------------------------------------------------------------------------------------------------- -->
 	<!-- --------------------------------------- PROCESSOS JUIZADOS ESPECIAIS ------------------------------------------------ -->

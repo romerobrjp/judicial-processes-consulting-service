@@ -1,28 +1,27 @@
 <meta charset="ISO-8859-1">
-<div data-role="page" id="partes1GrauInfo">
+<div data-role="page" id="movs1GrauInfo">
 	<script type="text/javascript">
 		document.addEventListener("deviceready", function() {
-			$('#partes1GrauInfo').bind('pageshow', function(event) {
+			$('#movs1GrauInfo').bind('pageshow', function(event) {
 				if (processoIdDaUrl != null && processoIdDaUrl != undefined && processoIdDaUrl != "") {
-					$('#lista_partes_1g li').not("#divider").remove();
-					carregarPartesArquivadasPorId(processoIdDaUrl);	
+					$('#lista_movimentacoes_1g li').not("#divider").remove();
+					carregarMovimentacoesArquivadasPorId(processoIdDaUrl);
 					$('#bt_consultas_arquivadas').show();
 				}
 				else {
 					$('#bt_consultas_arquivadas').hide();
-					$('#lista_partes_1g li').not("#divider").remove();
-					$('#lista_partes_1g').listview('refresh');
-					carregarPartesProcesso1Grau(proc);
-				}				
-			});
-		}, false);		
+					$('#lista_movimentacoes_1g li').not("#divider").remove();
+					carregarMovimentacoesProcesso1Grau(proc);
+				}
+			});			
+		}, false);
 	</script>
 
 	<div data-role="header">
         <div class="centralizar">	    	
    			<img id="logo" src="img/logo-consulta-processual.png" />
    		</div>
-        
+
 		<div data-role="navbar">
 			<ul id="menu">
 				<li><a href="index.html" data-iconpos="top" data-icon="home">Início</a></li>
@@ -33,17 +32,17 @@
 		<div data-role="navbar">
 			<ul>
 				<li><a href="processo1GrauInfo.html" data-icon="page">Processo</a></li>
-				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-				<li><a href="movs1GrauInfo.html" data-icon="direction">Movimentacoes</a></li>
+				<li><a href="partes1GrauInfo.html" data-icon="grid">Partes</a></li>
+				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 			</ul>
-		</div><!-- /navbar -->
+		</div>
 		
-		<div id="quant_partes" class="centralizar info_consulta">
+		<div id="quant_movimentacoes" class="centralizar info_consulta">
 		</div>
     </div>
     
 	<div data-role="content">
-		<ol data-role="listview" id="lista_partes_1g" data-filter="true" data-filter-placeholder="Filtrar itens...">
+		<ol data-role="listview" id="lista_movimentacoes_1g" data-filter="true" data-filter-placeholder="Filtrar itens...">
 						
 		</ol>
 	</div>
@@ -52,10 +51,10 @@
 		<div data-role="navbar">
 			<ul>
 				<li><a href="processo1GrauInfo.html" data-icon="page">Processo</a></li>
-				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="grid">Partes</a></li>
-				<li><a href="movs1GrauInfo.html" data-icon="direction">Movimentacoes</a></li>
+				<li><a href="partes1GrauInfo.html" data-icon="grid">Partes</a></li>
+				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="direction">Movimentacoes</a></li>
 			</ul>
-		</div><!-- /navbar -->
+		</div>
 		<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 	</div>
-</div>
+</div> <!-- movimentacoes1GrauInfo -->

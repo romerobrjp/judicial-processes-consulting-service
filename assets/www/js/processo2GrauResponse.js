@@ -1,13 +1,14 @@
-$('#processo2GrauInfo').bind('pageinit', function(event) {
-	//var numProcesso = $('#valor_consulta').val();
-	var numProcesso = '88820040049115001';
-	consultaProcesso2Grau(numProcesso);
-});
+var numProcesso = "";
+var proc = new Processo();
 
-//consulta processo 2º grau
-function consultaProcesso2Grau(numProcesso) {
+//consultar processo 2º grau
+function consultarProcesso2Grau(numProcesso) {
+	var parte;
+	var mov;
+	
 	$('#lista_partes_2g').text("");
 	$('#lista_movimentacoes_2g').text("");
+	
 	var msgConsultaProcesso2Grau = 
 		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsserver.servicos.consultaprocessual.tjpb.jus.br/">' +
 		'<soapenv:Header/>' + 
@@ -49,26 +50,85 @@ function consultaProcesso2Grau(numProcesso) {
 			
 			//carregando infos das partes			
 			xml.find('partes').each(function() {
-				var nmParte = $(this).find('nmParte').text();
-				var tipoparte = $(this).find('tipoparte').text();
+				parte = new Parte();
 				
-				$('#lista_partes_2g').append('<li> <h5>'+nmParte+'</h5>' + 
-						'<p> Tipo: ' + tipoparte + ' </p> </li>');
+				parte.nmParte = $(this).find('nmParte').text();
+				parte.tipoParte = $(this).find('tipoparte').text();
+				
+				proc.partes.push(parte);				
 			});
 			
 			//carregando infos da movimentacoes			
 			xml.find('movimentacoes').each(function() {
-				var dtMovimentacao = $(this).find('dtMovimentacao').text();
-				var dsMovimentacao = $(this).find('dsMovimentacao').text();
+				mov = new Movimentacao();
 				
-				$('#lista_movimentacoes_2g').append('<li>' + 
-					'<h5>' + dtMovimentacao + '</h5>' +
-					'<p>' + dsMovimentacao + '</p>' +
-					'</li>');
+				mov.dtMovimentacao = $(this).find('dtMovimentacao').text();
+				mov.dsMovimentacao = $(this).find('dsMovimentacao').text();
+				
+				proc.movimentacoes.push(mov);
 			});
+			
+			carregarInfosProcesso2Grau(proc);
+			arquivarConsulta(proc);
 		}
 		//failure: alert('Não foi possível realizar a consulta')
 	});
+}
+
+function carregarInfosProcesso2Grau(proc) {	
+	$('#nuProcesso_2g').html(proc.nuProcesso);
+	$('#nuProcesso1Grau_2g').html(proc.nuNovo);	
+	$('#classe_2g').text(proc.classe);
+	$('#dtDistribuicao_2g').text(proc.dtDistribuicao);
+	$('#vara_2g').text(proc.vara);
+	$('#nmOrgao_2g').text(proc.nmOrgao);
+	$('#tpDistribuição_2g').text(proc.tpDistribuicao);
+	$('#nmLocal_2g').text(proc.nmLocal);
+	$('#nmVolume_2g').text(proc.nmVolume);
+	$('#dtEntrada_2g').text(proc.dtEntrada);
+	$('#nmRelator_2g').text(proc.nmRelator);
+	
+	$('#aviso_info_processo').text('');
+	$('#aviso_info_processo').text('Dados do Processo');
+}
+
+function carregarPartesProcesso2Grau(proc) {
+	$('#lista_partes_2g').children().remove('li');
+		
+	$(proc.partes).each(function(i, p) {
+		$('#lista_partes_2g').append(
+			'<li> <h5>' + p.nmParte + '</h5>' + 
+			'<p> Tipo: ' + p.tipoParte + ' </p>');
+	});	
+	$("#lista_partes_2g").listview('refresh');
+	
+	$('#quant_partes_2g').text('');	
+	$('#quant_partes_2g').text(proc.partes.length + ' Partes');
+}
+
+function carregarMovimentacoesProcesso2Grau(proc) {
+	$('#lista_movimentacoes_2g').children().remove('li');
+	
+	$(proc.movimentacoes).each(function(i, m) {
+		$('#lista_movimentacoes_2g').append(
+			'<li>' + 
+			'<h5>' + m.dtMovimentacao + '</h5>' +
+			'<p> Descrição: ' + m.dsMovimentacao + ' </p>' +
+			'</li>');
+	});	
+	$("#lista_movimentacoes_2g").listview('refresh');
+	
+	$('#quant_movimentacoes_2g').text('');	
+	$('#quant_movimentacoes_2g').text(proc.movimentacoes.length + ' Movimentações');
+}
+
+function carregarProcesso2GrauPorId(id) {
+	var proc = pegarProcessoPorId(id);
+	alert(proc.nuProcesso);
+	
+	carregarInfosProcesso1Grau(proc);
+	carregarPartesProcesso1Grau(proc);
+	carregarMovimentacoesProcesso1Grau(proc);
 }
 
 //swipes

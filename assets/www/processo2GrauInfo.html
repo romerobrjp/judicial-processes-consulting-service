@@ -1,0 +1,123 @@
+<div data-role="page" id="processo2GrauInfo">
+	<script type="text/javascript">
+		document.addEventListener("deviceready", function() {
+			$('#processo2GrauInfo').bind('pageshow', function(event) {
+				//numProcesso = $('#valor_consulta').val();
+				numProcesso = '88820040049115001';
+				
+				if ( (processoIdDaUrl == null || processoIdDaUrl == undefined || processoIdDaUrl == "") ) {
+					processoIdDaUrl = getUrlVars()["processoId"];
+				}
+				
+				if ( processoIdDaUrl != null && processoIdDaUrl != undefined && processoIdDaUrl != "" ) {
+					carregarInfoProcessoArquivadoPorId(processoIdDaUrl);
+// 					$('#menu').empty();
+// 					$('#menu').append('<li><a href="index.html" data-iconpos="top" data-icon="home">Iníciooooooo</a></li>'); + 
+// 					$('#menu').append('<li><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Listagemmmmm</a></li>');
+					$('#bt_consultas_arquivadas').show();
+				}
+				else {
+// 					$('#menu').empty();
+// 					$('#menu').append('<li><a href="index.html" data-iconpos="top" data-icon="home">Iníciooooooooooooooopoooooo</a></li>');
+// 					$('#menu').listtview('refresh');
+					$('#bt_consultas_arquivadas').hide();
+					consultarProcesso2Grau(numProcesso);					
+				}				
+			});
+		}, false);
+	</script>
+	
+	<div data-role="header">
+        <div class="centralizar">	    	
+   			<img id="logo" src="img/logo-consulta-processual.png" />
+   		</div>
+
+		<div data-role="navbar" id="menu_superior">
+			<ul id="menu">
+				<li><a href="index.html" data-iconpos="top" data-icon="home">Início</a></li>
+				<li id="bt_consultas_arquivadas"><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Listagem</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
+				<li><a href="partes2GrauInfo.html" data-icon="grid">Partes</a></li>
+				<li><a href="movs2GrauInfo.html" data-icon="direction">Movimentacoes</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		
+		<div id="aviso_info_processo_2g" class="centralizar info_consulta">
+		</div>
+    </div>
+
+    <div data-role="content">
+		<ul data-role="listview" id="processo_detalhes_2g">
+			<li>
+				<h3>Nº Processo</h3>
+				<p id="nuProcesso_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Processo 1º grau</h3>
+				<p id="nuProcesso1Grau_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Classe</h3>
+				<p id="classe_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Última distribuição</h3>
+				<p id="dtDistribuicao_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Vara</h3>
+				<p id="vara_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Órgão</h3>
+				<p id="nmOrgao_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Tipo da distribuição</h3>
+				<p id="tpDistribuição_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Local</h3>
+				<p id="nmLocal_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Volume</h3>
+				<p id="nmVolume_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Entrada</h3>
+				<p id="dtEntrada_2g"></p>
+			</li>
+			
+			<li>
+				<h3>Relator</h3>
+				<p id="nmRelator_2g"></p>
+			</li>
+		</ul>
+    </div>
+    
+    <div data-role="footer">
+    	<div data-role="navbar">
+			<ul>
+				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
+				<li><a href="partes2GrauInfo.html" data-icon="grid">Partes</a></li>
+				<li><a href="movs2GrauInfo.html" data-icon="direction">Movimentacoes</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		<h4>Tribunal de Justiça da Paraíba - 2013</h4>
+	</div>
+</div>

@@ -29,4 +29,7 @@
 	text-align: center; 
 	background-color: gray; 
 	color: white;
+	margin: 5px, 0px, 5px, 0px;
 }
+
+.ui-li-desc {white-space:normal;}​

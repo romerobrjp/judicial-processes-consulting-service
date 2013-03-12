@@ -131,12 +131,16 @@ function listarProcessosArquivados() {
 			    				'?processoId=' + results.rows.item(i).ID + '"> <h3>' +
 				        		results.rows.item(i).NU_PROCESSO + ' </h3> <p class="' + results.rows.item(i).COD_CATEGORIA + '">' 
 				        		+ results.rows.item(i).DESC_CATEGORIA + '</p> </a> </li>');
-					    }					    
-					    if (len == 1) {
-					    	$('#quant_consultas_arquivadas').text(len + " Consulta Arquivada");
+					    }
+					    
+					    if (len == 0) {
+					    	$('#quant_consultas_arquivadas').text("Não há consultas arquivadas");
+					    }
+					    else if (len == 1) {
+					    	$('#quant_consultas_arquivadas').text(len + " Consulta arquivada");
 					    }
 					    else if (len > 1) {
-					    	$('#quant_consultas_arquivadas').text(len + " Consultas Arquivadas");
+					    	$('#quant_consultas_arquivadas').text(len + " Consultas arquivadas");
 					    }
 					    
 					    $('#lista_historico').listview('refresh');
@@ -180,7 +184,7 @@ function carregarInfoProcessoArquivadoPorId(id) {
 								$('#dtDistribuicao_1g').text(results.rows.item(0).DT_DISTRIBUICAO);
 								$('#vlAcao_1g').text(results.rows.item(0).VL_ACAO);
 								
-								$('#aviso_info_processo').empty();
+								$('#aviso_info_processo').text('');
 								$('#aviso_info_processo').text('Consulta Arquivada - Dados do Processo');
 							}
 						}
@@ -224,7 +228,7 @@ function carregarPartesArquivadasPorId(id) {
 										'<p> Advogados: ' + results.rows.item(i).ADVOGADOS + ' </p>' +
 										'<p> Documento: ' + results.rows.item(i).NU_DOC + ' </p> </li>');
 								}
-								$('#quant_partes').empty();
+								$('#quant_partes').text('');
 								$('#quant_partes').text('Consulta Arquivada - ' + len + ' Partes');
 								
 								$("#lista_partes_1g").listview('refresh');
@@ -270,7 +274,7 @@ function carregarMovimentacoesArquivadasPorId(id) {
 										'<p> Complemento: ' + results.rows.item(i).DS_COMPLEMENTO + ' </p>' +  
 										'</li>');
 								}								
-								$('#quant_movimentacoes').empty();
+								$('#quant_movimentacoes').text('');
 								$('#quant_movimentacoes').text('Consulta Arquivada - ' + len + ' Movimentações');
 								
 								$("#lista_movimentacoes_1g").listview('refresh');
