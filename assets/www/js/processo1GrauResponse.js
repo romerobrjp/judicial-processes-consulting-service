@@ -6,7 +6,7 @@ function consultarProcesso1Grau(numProcesso) {
 	proc = new Processo();
 	var parte;
 	var mov;
-	alert(numProcesso);
+	
 	$('#lista_partes_1g').text("");
 	$('#lista_movimentacoes_1g').text("");
 	
@@ -31,8 +31,8 @@ function consultarProcesso1Grau(numProcesso) {
 		success: function(response) {
 			var xml = $(response);
 			
-			if (xml.find('nuProcesso').text() ==  '' || xml.find('nuProcesso').text() == null || xml.find('nuProcesso').text() == undefined) {
-				alert('Nenhum resultado para processo de número '+numProcesso+'.');
+			if (xml.find('nuProcesso').text() == '' || xml.find('nuProcesso').text() == null || xml.find('nuProcesso').text() == undefined) {
+				alert('Nenhum resultado para o número processo digitado.');
 				$.mobile.changePage("index.html");
 				return null;
 			}
@@ -128,7 +128,6 @@ function carregarMovimentacoesProcesso1Grau(proc) {
 
 function carregarProcesso1GrauPorId(id) {
 	var proc = pegarProcessoPorId(id);
-	alert(proc.nuProcesso);
 	
 	carregarInfosProcesso1Grau(proc);
 	carregarPartesProcesso1Grau(proc);

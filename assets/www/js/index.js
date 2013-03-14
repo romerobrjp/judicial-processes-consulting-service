@@ -12,13 +12,24 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 	checarConexao();
-	
+
 	$(document).bind("mobileinit", function(){
 		$.mobile.defaultPageTransition = 'slide';
 	});
+
+	//máscara input processo 1º grau
+	$('#valor_consulta').bind('keyup blur', function(){
+	    var myValue = $(this).val();
+	    $(this).val( myValue.replace(/[^0-9]/g,'') );
+	});	
+
+//	$('#valor_consulta').keydown(function () {
+//		var s =  $(this).text();
+//		var s2 = (""+s).replace(/\D/g, '');
+//		var m = s2.match(/^(\d{4})(\d{3})(\d{3})$/);
+//		$(this).text((!m) ? null : ""  + m[1] + "-" + m[2] + "-" + m[3] );
+//	});
 }
-
-
 
 function checarConexao() {
 	networkState = navigator.network.connection.type;
@@ -38,7 +49,7 @@ function checarConexao() {
 }
 
 function limparInputConsulta() {
-    $('#valor_consulta').val("");
+    $('#valor_consulta').val("Digite aqui...");
 }
 
 //function gerenciaOpcoesComboboxOab() {
@@ -57,14 +68,14 @@ function limparInputConsulta() {
 function consultarPorNumero() {
 	var numProcesso = $('#valor_consulta').val();
 	
-	if (numProcesso == '' || numProcesso == 'Digite aqui...') {
-		alert('Informe um número de processo para realizar a consulta.');
-		return null;
-	}
 	if (networkState == 'none') {
         $("#popup_aviso_internet").popup('open');
         return null;
     }
+	else if (numProcesso == '' || numProcesso == 'Digite aqui...') {
+		$("#popup_informar_num_processo").popup('open');
+		return null;
+	}
 	
 	if($('#grau1').is(':checked') == true) {
 		$.mobile.changePage("processo1GrauInfo.html");

@@ -53,7 +53,7 @@
 			
 			<div data-role="navbar">
 				<ul>
-					<li><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Consultas Arquivadas</a></li>
+					<li><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Histórico de Processos</a></li>
 					<li><a href="#" onclick="navigator.app.exitApp();" data-iconpos="top" data-icon="delete">Sair</a></li>
 				</ul>
 			</div>
@@ -70,9 +70,12 @@
 	    <div data-role="content">
 			<label for="tipoConsulta" class="select">Informe o Nº do Processo:</label>
 	    	<div data-role="fieldcontain">
-			    <input type="text" name="valor_consulta" id="valor_consulta" value="Digite aqui..." style="color: #ccc;"
-			    onfocus="this.value = this.value == 'Digite aqui...' ? '' : this.value; this.style.color='#000';" 
-			    onblur="this.value = this.value == '' ? this.value = 'Digite aqui...' : this.value; this.value =='Digite aqui...' ? this.style.color='#ccc' : this.style.color='#000'" />
+			    <input 
+			    	type="text" name="valor_consulta" id="valor_consulta" value="Digite aqui..." style="color: #ccc;"
+			    	onfocus="this.value = this.value == 'Digite aqui...' ? '' : this.value; this.style.color='#000';" 
+			    	onblur="this.value = this.value == '' ? this.value = 'Digite aqui...' : this.value; this.value =='Digite aqui...' ? this.style.color='#ccc' : this.style.color='#000'"
+			    	maxlength="15"
+			    />
 			</div>
 			
 			<br/>
@@ -89,6 +92,10 @@
 			<div data-role="popup" id="popup_aviso_internet" data-theme="a">
 			    <p> Sem conexão com a internet! <p>
 				<p> Que tal navegar pelas consultas arquivadas? </p>
+			</div>
+			
+			<div data-role="popup" id="popup_informar_num_processo" data-theme="a">
+			    <p> Informe um número de processo para realizar a consulta. </p>
 			</div>
 			
 			<div class="centralizar">

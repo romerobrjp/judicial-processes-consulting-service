@@ -23,7 +23,7 @@
 // 					$('#menu').empty();
 // 					$('#menu').append('<li><a href="index.html" data-iconpos="top" data-icon="home">Iníciooooooooooooooopoooooo</a></li>');
 // 					$('#menu').listtview('refresh');
-					$('#bt_consultas_arquivadas').hide();
+					$('#bt_consultas_arquivadas').remove();
 					$('#lista_partes_1g li').not("#divider").remove();
 					$('#lista_movimentacoes_1g li').not("#divider").remove();
 					consultarProcesso1Grau(numProcesso);					
@@ -32,25 +32,24 @@
 		}, false);
 	</script>
 
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
         <div class="centralizar">	    	
    			<img id="logo" src="img/logo-consulta-processual.png" />
    		</div>
 		
-		<div data-role="navbar" id="menu_superior">
+		<div data-role="navbar" id="menu_superior" >
 			<ul id="menu">
-				<li><a href="index.html" data-iconpos="top" data-icon="home">Início</a></li>
-				<li id="bt_consultas_arquivadas"><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Listagem</a></li>
+				<li><a href="index.html" data-iconpos="top" data-icon="home">Inicio</a></li>
+				<li id="bt_consultas_arquivadas"><a href="historicoConsultas.html" data-iconpos="top" data-icon="flag">Voltar p/ Historico</a></li>
 			</ul>
-		</div><!-- /navbar -->
-		
+		</div>
 		<div data-role="navbar">
-			<ul>
+			<ul id="menu2">
 				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
 				<li><a href="partes1GrauInfo.html" data-icon="grid">Partes</a></li>
 				<li><a href="movs1GrauInfo.html" data-icon="direction">Movimentacoes</a></li>
 			</ul>
-		</div><!-- /navbar -->
+		</div>
 		
 		<div id="aviso_info_processo" class="centralizar info_consulta">
 		</div>
@@ -96,13 +95,6 @@
     </div>
     
     <div data-role="footer">
-    	<div data-role="navbar">
-			<ul>
-				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="page">Processo</a></li>
-				<li><a href="partes1GrauInfo.html" data-icon="grid">Partes</a></li>
-				<li><a href="movs1GrauInfo.html" data-icon="direction">Movimentacoes</a></li>
-			</ul>
-		</div><!-- /navbar -->
 		<h4>Tribunal de Justiça da Paraíba - 2013</h4>
 	</div>
 </div>
