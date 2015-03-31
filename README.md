@@ -1,4 +1,6 @@
-consulta_processual_mobile
-==========================
+Judicial Processes Consulting Service
+=====================================
 
-Consulta Processual Mobile para o TCC do curso de Mobilidade da faculdade iDez
+This software was developed as the final project of my Mobile Systems post graduation course.
+
+It aims to retrieve judicial processes of the Paraíba's Court of Justice through WebServices.
